@@ -11,6 +11,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call([
+        SpecialtySeeder::class,
+        SuggestionSeeder::class,
+        WorkspaceSeeder::class,
+        TreatmentSeeder::class,
+        WalkthroughSeeder::class,
+        RolePermissionSeeder::class,
+        UserSeeder::class,
+        AppointmentSeeder::class,
+        MedicalRecordSeeder::class,
+        PostCategorySeeder::class,
+        PostSeeder::class,
+        ]);
     }
 }
