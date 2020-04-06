@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         'name' => "Marco",
         'date_of_birth' => now(),
         'last_name' => "Sáenz",
-        'id_card' => "V11111111",
+        'id_card' => "V22222222",
         'email' => "marco.saenz262@gmail.com",
         'password' => 'ucla2020',
         'phone' => '04241111111',
