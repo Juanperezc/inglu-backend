@@ -28,11 +28,21 @@ class UserSeeder extends Seeder
         'date_of_birth' => now(),
         'last_name' => "Crespo",
         'id_card' => "V11111111",
-        'email' => "manuelcrespo@gmail.com",
+        'email' => "mcrespog@gmail.com",
         'password' => 'ucla2020',
         'phone' => '04241111111',
         'address' => ""
        ]);
        $manuel->roles()->attach(1);
+       $marco = User::create([
+        'name' => "Marco",
+        'date_of_birth' => now(),
+        'last_name' => "Sáenz",
+        'id_card' => "V11111111",
+        'email' => "marco.saenz262@gmail.com",
+        'password' => 'ucla2020',
+        'phone' => '04241111111',
+        'address' => ""
+       ]);
     }
 }
