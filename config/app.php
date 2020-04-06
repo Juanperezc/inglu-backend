@@ -167,7 +167,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Arcanedev\LaravelLang\LaravelLangServiceProvider::class,
-
+        Matthewbdaly\LaravelAzureStorage\AzureStorageServiceProvider::class,
         /*
          * Application Service Providers...
          */

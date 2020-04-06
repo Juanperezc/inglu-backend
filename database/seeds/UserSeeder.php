@@ -18,7 +18,9 @@ class UserSeeder extends Seeder
         'last_name' => "Perez",
         'id_card' => "V25141826",
         'email' => "juanl1996@hotmail.com",
-        'password' => '2514182657'
+        'password' => '2514182657',
+        'phone' => '04245869872',
+        'address' => "Carrera 10 entre 13 y 15"
        ]);
        $juan->roles()->attach(1);
     }

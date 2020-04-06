@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\Post\PostResource;
-use App\Http\Resources\Post\CategoryResource;
-use App\Http\Requests\Post\PostRequest;
-use App\Services\PostService;
-use App\Post;
 
-class PostController extends Controller
+use App\Http\Resources\Claim\ClaimResource;
+use App\Http\Requests\Claim\ClaimRequest;
+
+use App\Services\ClaimService;
+use App\Claim;
+
+class ClaimController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +23,9 @@ class PostController extends Controller
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
         $all = $request->input('all', false);
-        return PostResource::collection(PostService::all($perPage, $search));
+        return ClaimResource::collection(ClaimService::all($perPage, $search));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -41,12 +43,12 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(ClaimRequest $request)
     {
         $validate = $request->validated();
-        $post = PostService::store($validate);
-        
-        return new PostResource($post);
+        $claim = ClaimService::store($validate);
+        return new ClaimResource($claim);
+        //
     }
 
     /**
@@ -55,10 +57,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Claim $claim)
     {
-        //
-        return new PostResource($post);
+        return new ClaimResource($claim);
     }
 
     /**
@@ -79,11 +80,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, Post $post)
+    public function update(ClaimRequest $request, Claim $claim)
     {
         $validate = $request->validated();
-        PostService::update($validate, $post);
-        return new PostResource($post);
+        ClaimService::update($validate, $claim);
+        return new ClaimResource($claim);
     }
 
     /**
@@ -94,12 +95,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $processed = Post::destroy($id);
+        $processed = Claim::destroy($id);
         return response(['processed' => $processed], 204);
-    }
-
-    public function all_categories(Request $request)
-    {
-        return CategoryResource::collection(PostService::all_categories());
     }
 }

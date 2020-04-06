@@ -7,9 +7,13 @@ use App\Http\Requests\User\LoginRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\User\ChangePasswordRequest;
+use App\Http\Requests\User\UserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserAuthResource;
+use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
+use App\User;
 
 class UserController extends Controller
 {
@@ -31,6 +35,13 @@ class UserController extends Controller
     public function create()
     {
         //
+    }
+
+    public function update(UserRequest $request, User $user)
+    {
+        $validate = $request->validated();
+        UserService::update($validate, $user);
+        return new UserResource($user);
     }
 
     /**
@@ -73,10 +84,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    /* public function update(User $request, $id)
     {
         //
-    }
+    } */
 
     /**
      * Remove the specified resource from storage.
@@ -96,6 +107,20 @@ class UserController extends Controller
         $validate = $request->validated();
         $user = UserService::login($validate);
         return new UserAuthResource($user);
+        //return new UserResource($user);
+    }
+
+    public function change_password(ChangePasswordRequest $request)
+    {
+        //code...
+        $user = Auth::user();
+        $validate = $request->validated();
+        if (Hash::check($validate["password"], $user->password)) {
+        $user = UserService::change_password($validate);
+        return new UserResource($user);
+        }else{
+            abort(422, 'Password does not match');
+        }
         //return new UserResource($user);
     }
 

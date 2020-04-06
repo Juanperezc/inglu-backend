@@ -25,14 +25,29 @@ Route::group(['middleware' => ['auth:api'/* , 'verified' */]], function () {
 
 //*auth
 Route::delete('logout', 'UserController@logout');
-  
+
 //*users
 Route::apiResource('users', 'UserController');
 Route::get('user/me', 'UserController@me');
+Route::post('user/change_password', 'UserController@change_password');
 
 //*posts
 Route::apiResource('posts', 'PostController');
+Route::get('post/categories', 'PostController@all_categories');
 
+//*faqs
+Route::apiResource('faqs', 'FaqController');
+
+//*claims
+Route::apiResource('claims', 'ClaimController');
+//*claim_user
+Route::apiResource('claim_user', 'ClaimUserController');
+
+//*suggestion_user
+Route::apiResource('suggestion_user', 'SuggestionUserController');
+
+//*file
+Route::post('upload_file', 'StorageController@upload');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

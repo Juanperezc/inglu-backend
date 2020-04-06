@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\Post\PostResource;
-use App\Http\Resources\Post\CategoryResource;
-use App\Http\Requests\Post\PostRequest;
-use App\Services\PostService;
-use App\Post;
 
-class PostController extends Controller
+use App\Http\Resources\Suggestion\SuggestionUserResource;
+use App\Http\Requests\Suggestion\SuggestionUserRequest;
+use App\Services\SuggestionUserService;
+use App\SuggestionUser;
+
+
+class SuggestionUserController extends Controller
 {
-    /**
+  /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -22,8 +23,9 @@ class PostController extends Controller
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
         $all = $request->input('all', false);
-        return PostResource::collection(PostService::all($perPage, $search));
+        return SuggestionUserResource::collection(SuggestionUserService::all($perPage, $search));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -41,12 +43,12 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(SuggestionUserRequest $request)
     {
         $validate = $request->validated();
-        $post = PostService::store($validate);
-        
-        return new PostResource($post);
+        $suggestion = SuggestionUserService::store($validate);
+        return new SuggestionUserResource($suggestion);
+        //
     }
 
     /**
@@ -55,10 +57,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(SuggestionUser $suggestion)
     {
-        //
-        return new PostResource($post);
+        return new SuggestionUserResource($suggestion);
     }
 
     /**
@@ -79,11 +80,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, Post $post)
+    public function update(SuggestionUserRequest $request, SuggestionUser $suggestionUser)
     {
+        
         $validate = $request->validated();
-        PostService::update($validate, $post);
-        return new PostResource($post);
+      
+        SuggestionUserService::update($validate, $suggestionUser);
+        return new SuggestionUserResource($suggestionUser);
     }
 
     /**
@@ -94,12 +97,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $processed = Post::destroy($id);
+        $processed = SuggestionUser::destroy($id);
         return response(['processed' => $processed], 204);
-    }
-
-    public function all_categories(Request $request)
-    {
-        return CategoryResource::collection(PostService::all_categories());
     }
 }

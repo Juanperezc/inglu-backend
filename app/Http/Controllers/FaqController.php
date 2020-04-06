@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\Post\PostResource;
-use App\Http\Resources\Post\CategoryResource;
-use App\Http\Requests\Post\PostRequest;
-use App\Services\PostService;
-use App\Post;
+use App\Http\Resources\Faq\FaqResource;
+use App\Http\Requests\Faq\FaqRequest;
+use App\Services\FaqService;
+use App\Faq;
 
-class PostController extends Controller
+class FaqController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +21,7 @@ class PostController extends Controller
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
         $all = $request->input('all', false);
-        return PostResource::collection(PostService::all($perPage, $search));
+        return FaqResource::collection(FaqService::all($perPage, $search));
     }
 
     /**
@@ -41,24 +40,22 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(FaqRequest $request)
     {
         $validate = $request->validated();
-        $post = PostService::store($validate);
-        
-        return new PostResource($post);
+        $faq = FaqService::store($validate);
+        return new FaqResource($faq);
+        //
     }
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Faq $faq)
     {
-        //
-        return new PostResource($post);
+        return new FaqResource($faq);
     }
 
     /**
@@ -66,24 +63,23 @@ class PostController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+    */
     public function edit($id)
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
-    public function update(PostRequest $request, Post $post)
+    */
+    public function update(FaqRequest $request, Faq $faq)
     {
         $validate = $request->validated();
-        PostService::update($validate, $post);
-        return new PostResource($post);
+        FaqService::update($validate, $faq);
+        return new FaqResource($faq);
     }
 
     /**
@@ -94,12 +90,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $processed = Post::destroy($id);
+        $processed = Faq::destroy($id);
         return response(['processed' => $processed], 204);
-    }
-
-    public function all_categories(Request $request)
-    {
-        return CategoryResource::collection(PostService::all_categories());
     }
 }

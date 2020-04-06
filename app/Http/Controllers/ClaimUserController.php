@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\Post\PostResource;
-use App\Http\Resources\Post\CategoryResource;
-use App\Http\Requests\Post\PostRequest;
-use App\Services\PostService;
-use App\Post;
+use App\Http\Resources\Claim\ClaimUserResource;
+use App\Http\Requests\Claim\ClaimUserRequest;
+use App\Services\ClaimUserService;
+use App\ClaimUser;
 
-class PostController extends Controller
+class ClaimUserController extends Controller
 {
-    /**
+      /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -22,8 +21,9 @@ class PostController extends Controller
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
         $all = $request->input('all', false);
-        return PostResource::collection(PostService::all($perPage, $search));
+        return ClaimUserResource::collection(ClaimUserService::all($perPage, $search));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -41,12 +41,12 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(ClaimUserRequest $request)
     {
         $validate = $request->validated();
-        $post = PostService::store($validate);
-        
-        return new PostResource($post);
+        $claim = ClaimUserService::store($validate);
+        return new ClaimUserResource($claim);
+        //
     }
 
     /**
@@ -55,10 +55,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(ClaimUser $claim)
     {
-        //
-        return new PostResource($post);
+        return new ClaimUserResource($claim);
     }
 
     /**
@@ -79,11 +78,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, Post $post)
+    public function update(ClaimUserRequest $request, ClaimUser $claimUser)
     {
+        
         $validate = $request->validated();
-        PostService::update($validate, $post);
-        return new PostResource($post);
+      
+        ClaimUserService::update($validate, $claimUser);
+        return new ClaimUserResource($claimUser);
     }
 
     /**
@@ -94,12 +95,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $processed = Post::destroy($id);
+        $processed = ClaimUser::destroy($id);
         return response(['processed' => $processed], 204);
-    }
-
-    public function all_categories(Request $request)
-    {
-        return CategoryResource::collection(PostService::all_categories());
     }
 }

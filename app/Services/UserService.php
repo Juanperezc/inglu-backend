@@ -83,8 +83,21 @@ class UserService
         }
     }
 
-    public static function update(&$values, &$price)
+    public static function update(&$values, &$user)
     {
-        $price->update($values);
+        $user->update($values);
     }
+
+    public static function change_password($value)
+    {
+        $user = Auth::user();
+        $user->password = $value['new_password'];
+        $user->save();
+       /*  Notification::send($user, new ChangePasswordNotification(
+            $user->id,
+            $value['password']
+        )); */
+        return $user;
+    }
+
 }

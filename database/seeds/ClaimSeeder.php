@@ -15,6 +15,14 @@ class ClaimSeeder extends Seeder
         "description" => "Tengo una queja acerca del Club",
         "type" => "Club/Coordinación",
         ]);
+        Claim::create([
+            "description" => "Tengo una queja acerca del Medico",
+            "type" => "Club/Personal",
+            ]);
+        Claim::create([
+            "description" => "Tengo una queja acerca del Tratamiento",
+            "type" => "Club/Coordinación",
+            ]);
         //
        /*  factory(Workspace::class, 10)->create(); */
     }

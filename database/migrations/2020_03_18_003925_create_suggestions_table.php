@@ -17,6 +17,7 @@ class CreateSuggestionsTable extends Migration
             $table->id();
             $table->string('type', 100)->nullable();
             $table->string('description', 255)->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

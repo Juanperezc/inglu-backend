@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Post;
+use App\PostCategory;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Support\Arr;
@@ -17,32 +18,43 @@ class PostService
 
     public static function all($perPage = 10 , $search)
     {
-        $posts = Post::search($search)->paginate($perPage);
+        /* dd($search); */
+      
+        if ($search){
+            $posts = Post::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
+        }else{
+            $posts = Post::orderBy('updated_at', 'desc')->paginate($perPage);
+        }
+   
         /* $posts->category()->searchable(); */
         return $posts;
     }
-
+    public static function all_categories(){
+        $post_categories = PostCategory::all();
+        return $post_categories;
+    }
 
     public static function store(&$values)
     {
-      /*   try {
+          try {
             DB::beginTransaction();
-            $values['status'] = "enabled";
-            $user = User::create($values);
-            $user->email_verified_at = now();
-            $user->save();
-            $roles = Arr::get($values, "roles");
-            $user->syncRoles($roles);
+           /*  $values['status'] = "enabled"; */
+            $post = Post::make($values);
+           /*  $user->email_verified_at = now(); */
+            $post->user()->associate(Auth::id());
+            /* $roles = Arr::get($values, "roles");
+            $user->syncRoles($roles); */
+            $post->save();
             DB::commit();
-            return $user;
+            return $post;
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
-        } */
+        } 
     }
 
-    public static function update(&$values, &$price)
+    public static function update(&$values, &$post)
     {
-        $price->update($values);
+        $post->update($values);
     }
 }

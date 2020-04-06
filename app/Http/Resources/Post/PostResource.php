@@ -21,6 +21,8 @@ class PostResource extends JsonResource
             'description' => $this->description,
             'photo' => $this->photo,
             'category' => $this->category->description,
+            'updated_at' => $this->updated_at->format('d-m-Y H:i'),
+            'author' => $this->user ? ($this->user->name . " " .  $this->user->last_name) : null
         ];
     }
 }
