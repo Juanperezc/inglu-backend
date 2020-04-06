@@ -23,5 +23,16 @@ class UserSeeder extends Seeder
         'address' => "Carrera 10 entre 13 y 15"
        ]);
        $juan->roles()->attach(1);
+       $manuel =  User::create([
+        'name' => "Manuel",
+        'date_of_birth' => now(),
+        'last_name' => "Crespo",
+        'id_card' => "V11111111",
+        'email' => "manuelcrespo@gmail.com",
+        'password' => 'ucla2020',
+        'phone' => '04241111111',
+        'address' => ""
+       ]);
+       $manuel->roles()->attach(1);
     }
 }
