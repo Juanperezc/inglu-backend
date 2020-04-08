@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Claim;
+use App\Suggestion;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Support\Arr;
@@ -12,16 +12,16 @@ use Laravel\Passport\Passport;
 /* use App\Transaction; */
 use Illuminate\Support\Facades\Notification;
 
-class ClaimService
+class SuggestionService
 {
 
     public static function all($perPage = 10 , $search)
     {
         /* dd($search); */
         if ($search){
-            $faqs = Claim::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
+            $faqs = Suggestion::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
         }else{
-            $faqs = Claim::orderBy('updated_at', 'desc')->paginate($perPage);
+            $faqs = Suggestion::orderBy('updated_at', 'desc')->paginate($perPage);
         }
         return $faqs;
     }
@@ -31,7 +31,7 @@ class ClaimService
         try {
             DB::beginTransaction();
         /*  $values['status'] = "enabled"; */
-            $faq = Claim::make($values);
+            $faq = Suggestion::make($values);
             $faq->save();
             DB::commit();
             return $faq;
@@ -41,8 +41,8 @@ class ClaimService
         }
     }
 
-    public static function update(&$values, &$claim)
+    public static function update(&$values, &$suggestion)
     {
-        $claim->update($values);
+        $suggestion->update($values);
     }
 }

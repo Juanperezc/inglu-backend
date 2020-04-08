@@ -43,6 +43,8 @@ Route::apiResource('claims', 'ClaimController');
 //*claim_user
 Route::apiResource('claim_user', 'ClaimUserController');
 
+//*suggestions
+Route::apiResource('suggestions', 'SuggestionController');
 //*suggestion_user
 Route::apiResource('suggestion_user', 'SuggestionUserController');
 
