@@ -31,8 +31,14 @@ Route::apiResource('users', 'UserController');
 Route::get('user/me', 'UserController@me');
 Route::post('user/change_password', 'UserController@change_password');
 
+//*contacts
+Route::apiResource('contacts', 'ContactController');
+
 //*posts
 Route::apiResource('posts', 'PostController');
+
+//*post_category
+Route::apiResource('post_category', 'PostCategoryController');
 Route::get('post/categories', 'PostController@all_categories');
 
 //*faqs

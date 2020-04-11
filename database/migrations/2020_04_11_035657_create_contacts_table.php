@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,19 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->string('id_card')->unique();
             $table->string('name');
-            $table->string('profile_pic')->nullable();
             $table->string('last_name');
             $table->string('email')->unique();
-            $table->string('password');
             $table->date('date_of_birth');
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable()->default('male');
-            $table->enum('type', ['patient', 'medic', 'lead'])->default('patient');
-            $table->integer('status')->unsigned()->nullable()->default(1);
-            $table->timestamp('email_verified_at')->nullable();
+            $table->text('message')->nullable()->default(null);
+            $table->enum('type', ['join', 'info'])->default('join');
+            $table->integer('status')->unsigned()->nullable()->default(0);
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
@@ -41,6 +39,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('contacts');
     }
 }

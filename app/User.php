@@ -32,6 +32,7 @@ class User extends Authenticatable
         'id_card',
         'last_name',
         'date_of_birth',
+        'type'
     ];
 
       /**

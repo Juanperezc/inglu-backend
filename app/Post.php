@@ -38,11 +38,6 @@ class Post extends Model
             /* 'photo' => $this->photo, */
             'category' => $this->category["description"],
         ];
-        
-
-        // Customize array...
-
-    /*     return $array; */
     }
 
     public function searchableAs()
