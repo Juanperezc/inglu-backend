@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
     use HasRoles;
+    use Searchable;
     use SoftDeletes;
     use HasApiTokens, Notifiable;
 
@@ -34,6 +36,26 @@ class User extends Authenticatable
         'date_of_birth',
         'type'
     ];
+
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
 
       /**
      * Get the indexable data array for the model.
@@ -110,21 +132,24 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Walkthrough');
     }
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function toSearchableArray()
+    {
+        return [
+            "email" => $this->email,
+            "name" => $this->name,
+            "last_name" => $this->last_name,
+            "id_card" =>$this->id_card,
+            "profile_pic" => $this->profile_pic,
+            "date_of_birth" =>$this->date_of_birth,
+            "phone" => $this->phone,
+            "address" => $this->address,
+            "gender" => $this->gender,
+            'status' => $this->status,
+        ];
+    }
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function searchableAs()
+    {
+        return 'users_index';
+    }
 }

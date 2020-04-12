@@ -15,7 +15,6 @@ class UserService
 {
     public static function login($values)
     {
-        
         if (Auth::attempt(['email' => $values['email'], 'password' => $values['password']])) {
             $user = Auth::user();
             //* verificacion del mail
@@ -39,6 +38,18 @@ class UserService
         }
     }
 
+    public static function all_patient($perPage = 10 , $search)
+    {
+        /* dd($search); */
+      
+        if ($search){
+            $user = User::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
+        }else{
+            $user = User::orderBy('updated_at', 'desc')->paginate($perPage);
+        }
+   
+        return $user;
+    }
 
     public static function all($perPage, $search, $sort)
     {

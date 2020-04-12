@@ -26,6 +26,14 @@ class UserController extends Controller
     {
         //
     }
+    public function index_patient(Request $request)
+    {
+        //
+        $perPage = $request->input('per_page', 10);
+        $search = $request->input('search');
+        $all = $request->input('all', false);
+        return UserResource::collection(UserService::all_patient($perPage, $search));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -61,9 +69,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
+        return new UserResource($user);
     }
 
     /**
@@ -97,7 +106,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+    $user = User::destroy($id);
+    return response(['processed' => $user], 204);
     }
 
 

@@ -23,6 +23,10 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'id_card' => $faker->nationalId,
+        'address' => $faker->address,
+        'profile_pic' => 'https://placeimg.com/100/100/any?' . rand(1, 100),
+        'phone' => $faker->e164PhoneNumber,
+        'type' => rand(1,3),
         'date_of_birth' => $faker->dateTimeBetween('-40 years','-18 years'),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
@@ -39,7 +43,6 @@ $factory->afterCreating(User::class, function ($row, $faker) {
     $row->roles()->attach($role);
     $row->claims()->attach(rand(1,3),['text' => $faker->realText(20),
     'status' => rand(0,1)]);
-
     $row->suggestions()->attach(rand(1,3),['text' => $faker->realText(20),
     'status' => rand(0,1)]);
     $blood_types = [

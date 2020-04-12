@@ -68,7 +68,17 @@ class UserRequest extends FormRequest
 
         }else{
             // esta editando a alguien mas
-
+            return [
+                'name' => ['required', 'max:255'],
+                'last_name' => ['max:255'],
+                'id_card' => ['required', 'unique:users,id_card,' . $offer->id . ',id'],
+                'gender' => ['required'],
+                'date_of_birth' => ['required'],
+                'profile_pic' => ['required'],
+                'address' => ['nullable'],
+                'phone' =>  ['nullable', 'max:255'],
+                'status' =>  ['required', Rule::in([0,1,2])],
+            ];
         }
     }
     /* public function create()

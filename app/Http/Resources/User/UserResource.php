@@ -22,15 +22,15 @@ class UserResource extends JsonResource
             "id_card" =>$this->id_card,
             "profile_pic" => $this->profile_pic,
             "date_of_birth" =>$this->date_of_birth,
+            "type" => $this->type,
             "phone" => $this->phone,
             "address" => $this->address,
             "gender" => $this->gender,
             "email_verified_at" => $this->email_verified_at,
             'status' => $this->status,
             'notifications' => $this->notifications,
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
-        
-        ];
+            "created_at" => $this->created_at ? $this->created_at->format('d-m-Y H:i') : null,
+            "updated_at" => $this->updated_at ? $this->updated_at->format('d-m-Y H:i') : null
+             ];
     }
 }
