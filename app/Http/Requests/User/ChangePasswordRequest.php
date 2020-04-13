@@ -24,7 +24,7 @@ class ChangePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|min:5|max:200',
+            'password' => 'nullable|min:5|max:200',
             'new_password' => 'required|min:5|max:200',
             'confirm_password' => 'required|same:new_password',
         ];

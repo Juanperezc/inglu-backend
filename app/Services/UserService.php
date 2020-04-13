@@ -76,7 +76,7 @@ class UserService
     }
 
 
-    public static function store(&$values)
+/*     public static function store(&$values)
     {
         try {
             DB::beginTransaction();
@@ -92,16 +92,16 @@ class UserService
             DB::rollBack();
             throw $e;
         }
-    }
+    } */
 
     public static function update(&$values, &$user)
     {
         $user->update($values);
     }
 
-    public static function change_password($value)
+    public static function change_password(&$value, &$user)
     {
-        $user = Auth::user();
+        /* $user = Auth::user(); */
         $user->password = $value['new_password'];
         $user->save();
        /*  Notification::send($user, new ChangePasswordNotification(
@@ -109,6 +109,32 @@ class UserService
             $value['password']
         )); */
         return $user;
+    }
+
+    public static function store(&$values)
+    {
+          try {
+            DB::beginTransaction();
+           /*  $values['status'] = "enabled"; */
+            $user = User::make($values);
+            $user->email_verified_at = now();
+            $user->save();
+           /*  $user->email_verified_at = now(); */
+           if ($values["type"] == 2){
+            $user->roles()->attach([4]);
+           } else if ($values["type"] == 1){
+            $user->roles()->attach([2]);
+           }
+          
+            /* $roles = Arr::get($values, "roles");
+            $user->syncRoles($roles); */
+         
+            DB::commit();
+            return $user;
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } 
     }
 
 }

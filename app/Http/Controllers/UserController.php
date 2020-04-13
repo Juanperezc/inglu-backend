@@ -58,9 +58,11 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $validate = $request->validated();
+        $user = UserService::store($validate);
+        return new UserResource($user);
     }
 
     /**
@@ -120,17 +122,23 @@ class UserController extends Controller
         //return new UserResource($user);
     }
 
-    public function change_password(ChangePasswordRequest $request)
+    public function change_password(ChangePasswordRequest $request, User $user)
     {
         //code...
-        $user = Auth::user();
+      /*   $user = Auth::user(); */
         $validate = $request->validated();
-        if (Hash::check($validate["password"], $user->password)) {
-        $user = UserService::change_password($validate);
-        return new UserResource($user);
+        if ($validate["password"]){
+            if (Hash::check($validate["password"], $user->password)) {
+                $userNew = UserService::change_password($validate,$user);
+                return new UserResource($userNew);
+                }else{
+                    abort(422, 'Password does not match');
+                }
         }else{
-            abort(422, 'Password does not match');
+            $userNew = UserService::change_password($validate,$user);
+            return new UserResource($userNew); 
         }
+       
         //return new UserResource($user);
     }
 

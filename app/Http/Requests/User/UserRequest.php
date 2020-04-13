@@ -31,7 +31,7 @@ class UserRequest extends FormRequest
         if ($offer) {
             return $this->edit();
         }else{
-/*             return $this->create(); */
+            return $this->store();
         }
         // edit rules
       /*   dd($offer); */
@@ -78,13 +78,23 @@ class UserRequest extends FormRequest
                 'address' => ['nullable'],
                 'phone' =>  ['nullable', 'max:255'],
                 'status' =>  ['required', Rule::in([0,1,2])],
+                'type' =>  ['nullable', Rule::in([1,2,3])],
             ];
         }
     }
-    /* public function create()
+    public function store()
     {
         return [
-
+            'name' => ['required', 'max:255'],
+            'last_name' => ['max:255'],
+            'id_card' => ['required', 'unique:users,id_card'],
+            'email' => ['required', 'unique:users,email'],
+            'gender' => ['required'],
+            'date_of_birth' => ['required'],
+            'profile_pic' => ['required'],
+            'address' => ['nullable'],
+            'phone' =>  ['nullable', 'max:255'],
+            'type' =>  ['required', Rule::in([1,2,3])],
         ];
-    } */
+    }
 }

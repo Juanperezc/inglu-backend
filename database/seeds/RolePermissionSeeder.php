@@ -37,10 +37,10 @@ class RolePermissionSeeder extends Seeder
         $role = Role::create(['name' => 'collaborator']);
 
         $role->syncPermissions([
-            $permissionUV,
+           /*  $permissionUV,
             $permissionUE,
             $permissionUC,
-            $permissionUD]);
+            $permissionUD */]);
 
         $role = Role::create(['name' => 'patient']);
 

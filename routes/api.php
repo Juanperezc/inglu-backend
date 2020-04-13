@@ -30,7 +30,7 @@ Route::delete('logout', 'UserController@logout');
 Route::apiResource('users', 'UserController');
 Route::get('user/index_patient', 'UserController@index_patient');
 Route::get('user/me', 'UserController@me');
-Route::post('user/change_password', 'UserController@change_password');
+Route::post('user/change_password/{user}', 'UserController@change_password');
 
 //*contacts
 Route::apiResource('contacts', 'ContactController');
