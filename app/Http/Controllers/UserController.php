@@ -26,6 +26,15 @@ class UserController extends Controller
     {
         //
     }
+    public function index_doctors(Request $request)
+    {
+        //
+        $perPage = $request->input('per_page', 10);
+        $search = $request->input('search');
+        $all = $request->input('all', false);
+        return UserResource::collection(UserService::all_doctors($perPage, $search));
+    }
+
     public function index_patient(Request $request)
     {
         //

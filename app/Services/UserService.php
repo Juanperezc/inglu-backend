@@ -43,12 +43,27 @@ class UserService
         /* dd($search); */
       
         if ($search){
-            $user = User::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
+            $matching = User::search($search)->orderBy('updated_at', 'desc')->get()->pluck('id');
+            $user = User::whereIn('id', $matching)->whereIn('type', [1, 3])->orderBy('updated_at', 'desc')->paginate($perPage);
+        
         }else{
-            $user = User::orderBy('updated_at', 'desc')->paginate($perPage);
+            $user = User::whereIn('type', [1, 3])->orderBy('updated_at', 'desc')->paginate($perPage);
         }
    
         return $user;
+    }
+
+    public static function all_doctors($perPage = 10 , $search)
+    {
+
+      if ($search){
+        $matching = User::search($search)->orderBy('updated_at', 'desc')->get()->pluck('id');
+        $user = User::whereIn('id', $matching)->whereIn('type', [2])->orderBy('updated_at', 'desc')->paginate($perPage);
+    }else{
+        $user = User::where('type',2)->orderBy('updated_at', 'desc')->paginate($perPage);
+    }
+
+    return $user;
     }
 
     public static function all($perPage, $search, $sort)

@@ -29,6 +29,7 @@ Route::delete('logout', 'UserController@logout');
 //*users
 Route::apiResource('users', 'UserController');
 Route::get('user/index_patient', 'UserController@index_patient');
+Route::get('user/index_doctors', 'UserController@index_doctors');
 Route::get('user/me', 'UserController@me');
 Route::post('user/change_password/{user}', 'UserController@change_password');
 

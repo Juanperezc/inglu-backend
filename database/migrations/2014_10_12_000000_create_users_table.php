@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable()->default('male');
-            $table->enum('type', ['patient', 'medic', 'lead'])->default('patient');
+            $table->enum('type', ['patient', 'doctor', 'lead'])->default('patient');
             $table->integer('status')->unsigned()->nullable()->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->softDeletes();
