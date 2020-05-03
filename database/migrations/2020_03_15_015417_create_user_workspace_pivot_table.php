@@ -16,9 +16,11 @@ class CreateUserWorkspacePivotTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('workspace_id')->unsigned()->index();
-            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
+            $table->bigInteger('specialty_id')->unsigned()->index();
+            $table->string('location', 255)->nullable()->default(null);
+            $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('cascade');
             /* $table->primary(['user_id', 'workspace_id']); */
+          
             $table->timestamps();
         });
     }

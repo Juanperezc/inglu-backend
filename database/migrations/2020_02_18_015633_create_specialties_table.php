@@ -18,6 +18,8 @@ class CreateSpecialtiesTable extends Migration
             $table->string('name', 100)->nullable();
             $table->string('picture', 255)->nullable();
             $table->text('description')->nullable();
+            $table->integer('worker_limits')->unsigned()->nullable()->default(5);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

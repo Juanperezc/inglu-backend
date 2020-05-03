@@ -30,8 +30,17 @@ Route::delete('logout', 'UserController@logout');
 Route::apiResource('users', 'UserController');
 Route::get('user/index_patient', 'UserController@index_patient');
 Route::get('user/index_doctors', 'UserController@index_doctors');
+Route::get('user/specialty/{user}', 'UserController@show_specialties');
+Route::get('user/workspace/{user}', 'UserController@show_workspaces');
+Route::post('user/specialty/{user}', 'UserController@store_specialty');
+Route::post('user/workspace/{user}', 'UserController@store_workspace');
+Route::post('user/specialty_delete/{user}', 'UserController@delete_specialty');
+Route::post('user/workspace_delete/{user}', 'UserController@delete_workspace');
 Route::get('user/me', 'UserController@me');
 Route::post('user/change_password/{user}', 'UserController@change_password');
+
+//*specialties
+Route::apiResource('specialties', 'SpecialtyController');
 
 //*contacts
 Route::apiResource('contacts', 'ContactController');

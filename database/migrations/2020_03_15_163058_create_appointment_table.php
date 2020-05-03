@@ -22,8 +22,8 @@ class CreateAppointmentTable extends Migration
             $table->foreign('patient_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('medical_staff_id')->unsigned()->index();
             $table->foreign('medical_staff_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('workspace_id')->unsigned()->index();
-            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
+            $table->bigInteger('user_workspace_id')->unsigned()->nullable()->default(null)->index();
+            $table->foreign('user_workspace_id')->references('id')->on('user_workspace')->onDelete('cascade');
             $table->timestamps();
             /* $table->primary(['patient_id', 'medical_staff_id', 'workspace_id']); */
         });

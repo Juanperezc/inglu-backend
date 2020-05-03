@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         ContactSeeder::class,
         SpecialtySeeder::class,
         SuggestionSeeder::class,
-        WorkspaceSeeder::class,
+     /*    WorkspaceSeeder::class, */
         TreatmentSeeder::class,
         WalkthroughSeeder::class,
         RolePermissionSeeder::class,

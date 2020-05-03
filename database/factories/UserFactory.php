@@ -4,6 +4,8 @@
 
 use App\User;
 use App\MedicalRecord;
+use App\UserWorkspace;
+use App\UserWorkspaceTime;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -37,7 +39,19 @@ $factory->define(User::class, function (Faker $faker) {
 //* after creating
 
 $factory->afterCreating(User::class, function ($row, $faker) {
-    $row->workspaces()->attach(rand(1,5));
+    $rand_attach = rand(1,1);
+     $row->workspaces()->attach($rand_attach,['location' => $faker->realText(10)]);
+    
+    $user_workspace = UserWorkspace::where(['user_id' => $row->id, 'specialty_id' => $rand_attach])->first();
+  
+    $time = UserWorkspaceTime::create([
+        'start_time' => '18:00',
+         'end_time' => '20:00',
+          'day' => 'Monday',
+          'user_workspace_id' => $user_workspace->id
+    ]);
+ 
+   /*  $row->save(); */
     //! role
     $role = rand(1,4);
     $row->roles()->attach($role);
@@ -68,3 +82,15 @@ $factory->afterCreating(User::class, function ($row, $faker) {
     }
    
 });
+
+$factory->afterCreating(UserWorkspace::class, function ($row, $faker) {
+    //$page->comments()->save($comment);
+    $time = UserWorkspaceTime::make([
+        'start_time' => '18:00',
+         'end_time' => '20:00',
+          'day' => 'Monday',
+    ]);
+    $row->times()->save($time);
+});
+
+    

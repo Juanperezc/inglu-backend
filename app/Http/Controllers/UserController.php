@@ -8,12 +8,17 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\ChangePasswordRequest;
+use App\Http\Requests\User\UserWorkspaceRequest;
+use App\Http\Requests\User\UserSpecialtyRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserAuthResource;
+use App\Http\Resources\User\UserSpecialtyResource;
+use App\Http\Resources\User\UserWorkspaceResource;
 use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
 use App\User;
+use App\UserWorkspace;
 
 class UserController extends Controller
 {
@@ -74,6 +79,19 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+    public function store_specialty(UserSpecialtyRequest $request, User $user)
+    {
+        $validate = $request->validated();
+        $userNew = UserService::store_specialty($validate,$user);
+        return UserSpecialtyResource::collection($user->specialties);
+    }
+
+    public function store_workspace(UserWorkspaceRequest $request, User $user)
+    {
+        $validate = $request->validated();
+        $userNew = UserService::store_workspace($validate,$user);
+        return ["success" => $userNew];/* UserSpecialtyResource::collection($user->workspace); */
+    }
     /**
      * Display the specified resource.
      *
@@ -86,6 +104,19 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+
+    public function show_specialties(User $user)
+    {
+        //
+        return UserSpecialtyResource::collection($user->specialties);
+    }
+
+    public function show_workspaces(User $user)
+    {
+        //
+        $user_workspace = UserWorkspace::where('user_id', $user->id)->get();
+        return UserWorkspaceResource::collection($user_workspace);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -121,6 +152,21 @@ class UserController extends Controller
     return response(['processed' => $user], 204);
     }
 
+    public function delete_specialty(UserSpecialtyRequest $request, User $user)
+    {
+    $validate = $request->validated();
+    $response = $user->specialties()->detach($validate["specialty"]);
+    return response(['processed' => $response], 204);
+    }
+
+
+    public function delete_workspace(Request $request, User $user)
+    {
+        $response = UserWorkspace::destroy($request->input('user_workspace_id'));
+ /*    $response = $user->workspaces()->detach(); */
+/*     $user->save(); */
+    return response(['processed' => $response], 200);
+    }
 
     public function login(LoginRequest $request)
     {

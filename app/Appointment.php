@@ -18,7 +18,7 @@ class Appointment extends Model
 
     public function workspace()
     {
-        return $this->belongsTo('App\Workspace');
+        return $this->belongsTo('App\UserWorkspace', 'user_workspace_id');
     }
     //
 }

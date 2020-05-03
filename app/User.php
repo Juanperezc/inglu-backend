@@ -96,9 +96,10 @@ class User extends Authenticatable
 
     public function workspaces()
     {
-        return $this->belongsToMany('App\Workspace')->using('App\UserWorkspace')->withPivot([
+        return $this->belongsToMany('App\Specialty', 'user_workspace')->using('App\UserWorkspace')->withPivot([
             'created_at',
             'updated_at',
+            'location'
         ]);
     }
 
