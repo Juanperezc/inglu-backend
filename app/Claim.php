@@ -37,5 +37,9 @@ class Claim extends Model
         ])->withTimestamps();
     }
 
+    public function searchableAs()
+    {
+        return 'claims_index';
+    }
     //
 }

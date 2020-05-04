@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\UserWorkspaceRequest;
 use App\Http\Requests\User\UserSpecialtyRequest;
+use App\Http\Requests\User\UserMedicalRecordRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserAuthResource;
 use App\Http\Resources\User\UserSpecialtyResource;
 use App\Http\Resources\User\UserWorkspaceResource;
+use App\Http\Resources\User\UserMedicalRecordResource;
 use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
 use App\User;
@@ -64,6 +66,13 @@ class UserController extends Controller
         $validate = $request->validated();
         UserService::update($validate, $user);
         return new UserResource($user);
+    }
+
+    public function update_medical_record(UserMedicalRecordRequest $request, User $user)
+    {
+        $validate = $request->validated();
+        UserService::update_medical_record($validate, $user);
+        return new UserMedicalRecordResource($user->medical_record);
     }
 
     /**
@@ -116,6 +125,20 @@ class UserController extends Controller
         //
         $user_workspace = UserWorkspace::where('user_id', $user->id)->get();
         return UserWorkspaceResource::collection($user_workspace);
+    }
+
+
+    public function show_medical_record(User $user)
+    {
+        //
+        $resource = $user->medical_record;
+        if ($resource){
+            return new UserMedicalRecordResource($resource);
+        }else {
+            return response(['data' => null], 200);
+        }
+        
+      
     }
     /**
      * Show the form for editing the specified resource.

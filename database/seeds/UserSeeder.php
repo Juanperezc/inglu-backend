@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         'last_name' => "Perez",
         'id_card' => "V25141826",
         'email' => "juanl1996@hotmail.com",
+        'type' => 2,
         'password' => '2514182657',
         'phone' => '04245869872',
         'address' => "Carrera 10 entre 13 y 15"
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
         'date_of_birth' => now(),
         'last_name' => "Crespo",
         'id_card' => "V11111111",
+        'type' => 2,
         'email' => "mcrespog@gmail.com",
         'password' => 'ucla2020',
         'phone' => '04241111111',
@@ -39,6 +41,7 @@ class UserSeeder extends Seeder
         'date_of_birth' => now(),
         'last_name' => "Sáenz",
         'id_card' => "V22222222",
+        'type' => 2,
         'email' => "marco.saenz262@gmail.com",
         'password' => 'ucla2020',
         'phone' => '04241111111',

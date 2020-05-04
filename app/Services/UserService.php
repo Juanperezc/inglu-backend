@@ -5,6 +5,7 @@ namespace App\Services;
 use App\User;
 use App\UserWorkspace;
 use App\UserWorkspaceTime;
+use App\MedicalRecord;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -112,6 +113,11 @@ throw $e;
         $user->update($values);
     }
 
+    public static function update_medical_record(&$values, &$user)
+    {
+        $user->medical_record()->update($values);
+    }
+
     public static function change_password(&$value, &$user)
     {
         /* $user = Auth::user(); */
@@ -134,9 +140,11 @@ throw $e;
             $user->save();
             /*  $user->email_verified_at = now(); */
             if ($values["type"] == 2) {
-                $user->roles()->attach([4]);
-            } else if ($values["type"] == 1) {
                 $user->roles()->attach([2]);
+            } else if ($values["type"] == 1) {
+                $user->roles()->attach([4]);
+
+                $user->medical_record()->save(new MedicalRecord);
             }
 
             /* $roles = Arr::get($values, "roles");

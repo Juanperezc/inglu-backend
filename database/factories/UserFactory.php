@@ -28,7 +28,7 @@ $factory->define(User::class, function (Faker $faker) {
         'address' => $faker->address,
         'profile_pic' => 'https://placeimg.com/100/100/any?' . rand(1, 100),
         'phone' => $faker->e164PhoneNumber,
-        'type' => rand(1,3),
+        'type' => rand(1,2), //3 es lead
         'date_of_birth' => $faker->dateTimeBetween('-40 years','-18 years'),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
@@ -53,7 +53,15 @@ $factory->afterCreating(User::class, function ($row, $faker) {
  
    /*  $row->save(); */
     //! role
-    $role = rand(1,4);
+  /*   $role = rand(1,4); */
+    
+    if ($row->type == 1){
+        $role = 4;
+//patient
+    }else if ($row->type == 2){
+        $role = 2;
+//doctor
+    }
     $row->roles()->attach($role);
     $row->claims()->attach(rand(1,3),['text' => $faker->realText(20),
     'status' => rand(0,1)]);
@@ -70,7 +78,7 @@ $factory->afterCreating(User::class, function ($row, $faker) {
         "OB-"];
 
     //* Cambios
-    if ($role != 4){
+    if (/* $role != 4 */ $row->type == 1){
         MedicalRecord::create([
             "blood_type" => $blood_types[rand(0,7)],
             "patient_status" => $faker->realText(20),

@@ -4,18 +4,22 @@
 
 use App\Appointment;
 use App\Treatment;
+use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(Appointment::class, function (Faker $faker) {
+    $doctor = User::where('type', 2)->inRandomOrder()->first();
+    $patient = User::where('type', 1)->inRandomOrder()->first();
+    $status = rand(0,3);
     return [
-     
-        'medical_staff_id' => rand(1,10),
-        'patient_id' => rand(1,10),
+        'medical_staff_id' => $doctor->id,
+        'patient_id' => $patient->id,
         'user_workspace_id' => null/* rand(1,5) */,
         'date' => $faker->dateTimeBetween('-1 years','now'),
         'qualification' => rand(0,5),
-        'comment' => $faker->realText(200),
-        'status' => rand(0,2)
+        'condition' => $faker->realText(10),
+        'comment' => ($status == 3) ? $faker->realText(200) : null,
+        'status' => $status
         //
     ];
 });
