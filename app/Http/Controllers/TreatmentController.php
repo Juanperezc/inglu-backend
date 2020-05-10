@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
-use App\Http\Resources\Appointment\AppointmentResource;
-use App\Http\Requests\Appointment\AppointmentRequest;
 use App\Http\Resources\Treatment\TreatmentResource;
-use App\Services\AppointmentService;
-use App\Appointment;
+use App\Http\Requests\Treatment\TreatmentRequest;
+use App\Services\TreatmentService;
+use App\Treatment;
 
-class AppointmentController extends Controller
+class TreatmentController extends Controller
 {
     //
+      //
       /**
      * Display a listing of the resource.
      *
@@ -24,7 +23,7 @@ class AppointmentController extends Controller
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
         $all = $request->input('all', false);
-        return AppointmentResource::collection(AppointmentService::all($perPage, $search));
+        return TreatmentResource::collection(TreatmentService::all($perPage, $search));
     }
 
     /**
@@ -43,12 +42,12 @@ class AppointmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AppointmentRequest $request)
+    public function store(TreatmentRequest $request)
     {
         $validate = $request->validated();
-        $appointment = AppointmentService::store($validate);
+        $treatment = TreatmentService::store($validate);
         
-        return $appointment;
+        return $treatment;
     }
 
     /**
@@ -57,22 +56,12 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Appointment $appointment)
+    public function show(Treatment $treatment)
     {
         //
-        return new AppointmentResource($appointment);
+        return new TreatmentResource($treatment);
     }
 
-    public function show_treatment(Appointment $appointment)
-    {
-        //
-        if ($appointment->treatment){
-            return new TreatmentResource($appointment->treatment);
-        }else {
-          return response(['data' => null], 200);
-        }
-    
-    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -91,11 +80,11 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AppointmentRequest $request, Appointment $appointment)
+    public function update(TreatmentRequest $request, Treatment $treatment)
     {
         $validate = $request->validated();
-        AppointmentService::update($validate, $appointment);
-        return new AppointmentResource($appointment);
+        TreatmentService::update($validate, $treatment);
+        return new TreatmentResource($treatment);
     }
 
     /**
@@ -106,8 +95,7 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        $processed = Appointment::destroy($id);
+        $processed = Treatment::destroy($id);
         return response(['processed' => $processed], 204);
     }
-
 }

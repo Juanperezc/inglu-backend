@@ -33,6 +33,11 @@ class Appointment extends Model
         return $this->belongsTo('App\User', 'patient_id');
     }
 
+    public function treatment()
+    {
+        return $this->hasOne('App\Treatment', 'appointment_id');
+    }
+
     public function workspace()
     {
         return $this->belongsTo('App\UserWorkspace', 'user_workspace_id');

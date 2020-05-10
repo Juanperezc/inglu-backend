@@ -103,6 +103,17 @@ class User extends Authenticatable
         ]);
     }
 
+    public function events()
+    {
+        return $this->belongsToMany('App\Event', 'event_user')->using('App\EventUser')->withPivot([
+            'created_at',
+            'updated_at',
+            'comment',
+            'qualification',
+            'status'
+        ]);
+    }
+
     public function suggestions()
     {
         return $this->belongsToMany(Suggestion::class,

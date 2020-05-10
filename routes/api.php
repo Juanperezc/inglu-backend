@@ -41,8 +41,12 @@ Route::post('user/workspace_delete/{user}', 'UserController@delete_workspace');
 Route::get('user/me', 'UserController@me');
 Route::post('user/change_password/{user}', 'UserController@change_password');
 
+//*treatments
+Route::apiResource('treatments', 'TreatmentController');
+
 //*appointments
 Route::apiResource('appointments', 'AppointmentController');
+Route::get('appointment/treatment/{appointment}', 'AppointmentController@show_treatment');
 
 //*specialties
 Route::apiResource('specialties', 'SpecialtyController');

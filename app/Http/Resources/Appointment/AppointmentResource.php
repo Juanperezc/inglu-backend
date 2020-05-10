@@ -19,7 +19,7 @@ class AppointmentResource extends JsonResource
             'photo' => $this->patient ? $this->patient->profile_pic : null,
             'patient' => $this->patient ? ($this->patient->name . " " . $this->patient->last_name) : null,
             'doctor' => $this->medical ? ($this->medical->name . " " . $this->medical->last_name) : null,
-            'date' => $this->date->format('d-m-Y H:i'),
+            'date' => $this->date->format('Y-m-d H:i'),
             'condition' => $this->condition,
             'status' => $this->status,
             'updated_at' => $this->updated_at ? $this->updated_at->format('d-m-Y H:i') : null,
