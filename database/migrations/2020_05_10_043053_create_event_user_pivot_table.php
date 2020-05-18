@@ -21,7 +21,7 @@ class CreateEventUserPivotTable extends Migration
          /*    $table->primary(['event_id', 'user_id']); */
             $table->text('comment')->nullable()->default(null);
             $table->integer('qualification')->unsigned()->nullable()->default(0);
-            $table->enum('status', ['send', 'confirmed', 'rejected'])->nullable()->default('send');
+            $table->enum('status', ['send', 'rejected', 'confirmed'])->nullable()->default('send');
             $table->timestamps();
         });
     }

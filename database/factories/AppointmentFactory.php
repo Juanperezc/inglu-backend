@@ -15,7 +15,7 @@ $factory->define(Appointment::class, function (Faker $faker) {
         'medical_staff_id' => $doctor->id,
         'patient_id' => $patient->id,
         'user_workspace_id' => null/* rand(1,5) */,
-        'date' => $faker->dateTimeBetween('-1 years','now'),
+        'date' => $faker->dateTimeBetween('-30 days','now'),
         'qualification' => rand(0,5),
         'condition' => $faker->realText(10),
         'comment' => ($status == 3) ? $faker->realText(200) : null,

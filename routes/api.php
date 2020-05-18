@@ -48,6 +48,11 @@ Route::apiResource('treatments', 'TreatmentController');
 Route::apiResource('appointments', 'AppointmentController');
 Route::get('appointment/treatment/{appointment}', 'AppointmentController@show_treatment');
 
+//*events
+Route::apiResource('events', 'EventController');
+Route::apiResource('event/user', 'EventUserController');
+
+
 //*specialties
 Route::apiResource('specialties', 'SpecialtyController');
 

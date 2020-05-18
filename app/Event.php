@@ -10,10 +10,10 @@ class Event extends Model
 {
     use Searchable;
     use SoftDeletes;
-
+    protected $dates = ['date', 'updated_at', 'created_at'];
     protected $fillable = [
         "name", "picture", "description", "date", "limit", "type",
-        "location", "status"
+        "location", "status", 'doctor_id'
     ];
 
     public function doctor()

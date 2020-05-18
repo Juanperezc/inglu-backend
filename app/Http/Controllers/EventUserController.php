@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\Event\EventResource;
-use App\Http\Requests\Event\EventRequest;
-use App\Services\EventService;
-use App\Event;
-class EventController extends Controller
+use App\Http\Resources\Event\EventUserResource;
+use App\Http\Requests\Event\EventUserRequest;
+use App\Services\EventUserService;
+use App\EventUser;
+
+
+class EventUserController extends Controller
 {
     //
+     //
      /**
      * Display a listing of the resource.
      *
@@ -21,7 +24,7 @@ class EventController extends Controller
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
         $all = $request->input('all', false);
-        return EventResource::collection(EventService::all($perPage, $search));
+        return EventUserResource::collection(EventUserService::all($perPage, $search));
     }
 
     /**
@@ -40,11 +43,11 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EventRequest $request)
+    public function store(EventUserRequest $request)
     {
         $validate = $request->validated();
-        $event = EventService::store($validate);
-        return new EventResource($event);
+        $event_user = EventUserService::store($validate);
+        return new EventUserResource($event_user);
         //
     }
     /**
@@ -53,9 +56,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show(EventUser $event_user)
     {
-        return new EventResource($event);
+        return new EventUserResource($event_user);
     }
 
     /**
@@ -75,11 +78,11 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
     */
-    public function update(EventRequest $request, Event $event)
+    public function update(EventUserRequest $request, EventUser $event_user)
     {
         $validate = $request->validated();
-        EventService::update($validate, $event);
-        return new EventResource($event);
+        EventUserService::update($validate, $event_user);
+        return new EventUserResource($event_user);
     }
 
     /**
@@ -90,7 +93,7 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        $processed = Event::destroy($id);
+        $processed = EventUser::destroy($id);
         return response(['processed' => $processed], 204);
     }
 }
