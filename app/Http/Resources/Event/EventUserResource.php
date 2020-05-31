@@ -19,7 +19,7 @@ class EventUserResource extends JsonResource
         'comment' => $this->comment,
         'qualification' => $this->qualification,
         'date' => $this->event ?  $this->event->date->format('d-m-Y H:i') : null,
-        'updated_at' => $this->updated_at->format('d-m-Y H:i'),
+        'updated_at' => $this->updated_at,
         'user' => $this->user ? ($this->user->name . " " .  $this->user->last_name) : null,
         'event' => $this->event ? ($this->event->name) : null,
         'description' => $this->event ? ($this->event->description) : null,

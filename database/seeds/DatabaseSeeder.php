@@ -12,6 +12,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+        SiteJoinSeeder::class,
+        SiteInformationSeeder::class,
+        SiteSettingSeeder::class,
+        SiteHWorkSeeder::class,
+        SiteHWorkItemSeeder::class,
+        SiteImageSeeder::class,
+        SiteImageItemSeeder::class,
+        SiteTeamSeeder::class,
+        SiteTeamMemberSeeder::class,
         FaqSeeder::class,
         ClaimSeeder::class,
         ContactSeeder::class,

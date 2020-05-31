@@ -25,8 +25,8 @@ class EventResource extends JsonResource
             "type" => $this->type,
             "location" => $this->location,
             "status" => $this->status == 'enabled' ? 0: 1,
-            'updated_at' => $this->updated_at ? $this->updated_at->format('d-m-Y H:i') : null,
-            'created_at' => $this->created_at ? $this->created_at->format('d-m-Y H:i') : null,
+            'updated_at' =>  $this->updated_at,
+            'created_at' =>  $this->created_at,
         ];
     }
 }

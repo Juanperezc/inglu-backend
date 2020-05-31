@@ -79,9 +79,79 @@ Route::apiResource('suggestions', 'SuggestionController');
 //*suggestion_user
 Route::apiResource('suggestion_user', 'SuggestionUserController');
 
+
+//? Site
+
+//*site_team
+Route::apiResource('site_teams', 'SiteTeamController');
+//*site_team_member
+Route::apiResource('site_team_members', 'SiteTeamMemberController');
+
+//*site_image
+Route::resource('site_images', 'SiteImageController', [
+    'except' => [
+        'index',
+        'show'
+    ]
+]);
+//*site_image_item
+
+Route::resource('site_image_items', 'SiteImageItemController', [
+    'except' => [
+        'index',
+        'show'
+    ]
+]);
+
+//*site_h_work
+Route::apiResource('site_h_works', 'SiteHWorkController');
+//*site_h_work_item
+Route::apiResource('site_h_work_items', 'SiteHWorkItemController');
+
+//*site_information
+Route::apiResource('site_information', 'SiteInformationController');
+
+//*site_setting
+Route::resource('site_setting', 'SiteSettingController', [
+    'except' => [
+        'index',
+        'show'
+    ]
+]);
+
+
+//*site_join
+Route::apiResource('site_join', 'SiteJoinController');
+
+
+//? File
 //*file
 Route::post('upload_file', 'StorageController@upload');
 });
+
+//? Public Site Routes
+
+//*site_setting
+Route::resource('site_setting', 'SiteSettingController', [
+    'only' => [
+        'index',
+        'show'
+    ]
+]);
+//*site_image
+Route::resource('site_images', 'SiteImageController', [
+    'only' => [
+        'index',
+        'show'
+    ]
+]);
+//*site_image_items
+Route::resource('site_image_items', 'SiteImageItemController', [
+    'only' => [
+        'index',
+        'show'
+    ]
+]);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
 

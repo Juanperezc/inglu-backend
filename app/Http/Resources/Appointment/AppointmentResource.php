@@ -22,8 +22,8 @@ class AppointmentResource extends JsonResource
             'date' => $this->date->format('Y-m-d H:i'),
             'condition' => $this->condition,
             'status' => $this->status,
-            'updated_at' => $this->updated_at ? $this->updated_at->format('d-m-Y H:i') : null,
-            'created_at' => $this->created_at ? $this->created_at->format('d-m-Y H:i') : null,
+            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at,
             'patient_id' => $this->patient_id,
             'medical_staff_id' => $this->medical_staff_id,
             'user_workspace_id' => $this->user_workspace_id
