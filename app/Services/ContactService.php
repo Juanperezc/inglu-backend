@@ -19,22 +19,21 @@ class ContactService
     {
         /* dd($search); */
         if ($search){
-            $faqs = Contact::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
+            $contacts = Contact::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
         }else{
-            $faqs = Contact::orderBy('updated_at', 'desc')->paginate($perPage);
+            $contacts = Contact::orderBy('updated_at', 'desc')->paginate($perPage);
         }
-        return $faqs;
+        return $contacts;
     }
 
     public static function store(&$values)
     {
         try {
             DB::beginTransaction();
-        /*  $values['status'] = "enabled"; */
-            $faq = Contact::make($values);
-            $faq->save();
+            $contact = Contact::make($values);
+            $contact->save();
             DB::commit();
-            return $faq;
+            return $contact;
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;

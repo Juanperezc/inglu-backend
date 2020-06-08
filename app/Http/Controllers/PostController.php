@@ -19,10 +19,11 @@ class PostController extends Controller
     public function index(Request $request)
     {
         //
+        $category = $request->input('category_id', null);
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
         $all = $request->input('all', false);
-        return PostResource::collection(PostService::all($perPage, $search));
+        return PostResource::collection(PostService::all($perPage, $search,$category));
     }
 
     /**

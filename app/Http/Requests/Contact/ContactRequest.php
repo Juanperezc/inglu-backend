@@ -27,12 +27,14 @@ class ContactRequest extends FormRequest
         return [
             'name' => ['required', 'max:255'],
             'last_name' => ['max:255'],
+            'email' => ['required'],
             'id_card' => ['required'],
+            'type' => ['nullable'],
             'gender' => ['nullable'],
             'date_of_birth' => ['required'],
             'address' => ['nullable'],
             'phone' =>  ['nullable', 'max:255'],
-            'status' =>  ['required', Rule::in([0,1,2])],
+            'status' =>  ['nullable', Rule::in([0,1,2])],
         ];
     }
 }

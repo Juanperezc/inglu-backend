@@ -19,6 +19,9 @@ class SiteHWorkController extends Controller
     public function index(Request $request)
     {
         //
+        $perPage = $request->input('per_page', 10);
+        $search = $request->input('search');
+        $all = $request->input('all', false);
         return SiteHWorkResource::collection(SiteHWorkService::all($perPage, $search));
     }
 
