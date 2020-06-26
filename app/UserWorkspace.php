@@ -9,7 +9,7 @@ class UserWorkspace extends Pivot
     //
     protected $table = 'user_workspace';
     protected $fillable = [
-        'location', 
+        'location', 'user_id' 
     ];
 
     public function specialty()

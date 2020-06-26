@@ -9,7 +9,7 @@ class ClaimUser extends Pivot
 {
     use Searchable;
     protected $fillable = [
-        'text', 'status',
+        'text', 'status', 'user_id', 'claim_id'
     ];
     protected $table = "claim_user";
     //

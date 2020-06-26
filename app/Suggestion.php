@@ -10,7 +10,7 @@ class Suggestion extends Model
 {
     //
     protected $fillable = [
-        'type', 'description',
+        'type', 'description'
     ];
     
     use Searchable;

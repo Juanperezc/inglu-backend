@@ -26,10 +26,18 @@ class AppointmentService
         }else{
             $appointments = Appointment::orderBy('updated_at', 'desc')->paginate($perPage);
         }
-   
         /* $appointments->category()->searchable(); */
         return $appointments;
     }
+
+    public static function my_appointments($perPage = 10 , $search)
+    {
+        /* dd($search); */
+        $appointments = Appointment::where('patient_id', Auth::id())->orderBy('updated_at', 'desc')->paginate($perPage);
+        /* $appointments->category()->searchable(); */
+        return $appointments;
+    }
+    
 
     public static function store(&$values)
     {
@@ -39,7 +47,7 @@ class AppointmentService
             $appointment = Appointment::make($values);
             $appointment->save();
             DB::commit();
-            return $values["date"];
+            return $appointment;
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;

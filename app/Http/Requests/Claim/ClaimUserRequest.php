@@ -24,6 +24,8 @@ class ClaimUserRequest extends FormRequest
     public function rules()
     {
         return [
+            'text' => ['required'],
+            'claim_id' => ['required'],
             'status' => ['required'],
         ];
     }

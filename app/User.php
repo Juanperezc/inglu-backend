@@ -10,8 +10,11 @@ use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
 
+
+
 class User extends Authenticatable
 {
+
     use HasRoles;
     use Searchable;
     use SoftDeletes;
@@ -163,5 +166,10 @@ class User extends Authenticatable
     public function searchableAs()
     {
         return 'users_index';
+    }
+
+    public function routeNotificationForOneSignal()
+    {
+        return ['email' => $this->email];
     }
 }

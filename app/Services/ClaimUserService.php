@@ -30,6 +30,7 @@ class ClaimUserService
     {
         try {
             DB::beginTransaction();
+            $values["user_id"] = Auth::id();
         /*  $values['status'] = "enabled"; */
             $claimUser = ClaimUser::make($values);
             $claimUser->save();

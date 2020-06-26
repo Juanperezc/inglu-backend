@@ -15,14 +15,32 @@ use Illuminate\Support\Facades\Notification;
 class EventService
 {
 
-    public static function all($perPage = 10 , $search)
+    public static function all($perPage = 10 , $search, $type= null)
     {
         /* dd($search); */
         if ($search){
             $events = Event::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
         }else{
-            $events = Event::orderBy('updated_at', 'desc')->paginate($perPage);
+            if ($type != null && $type != "null"){
+                $events = Event::where('type', $type)->orderBy('updated_at', 'desc')->paginate($perPage);
+            }else{
+                $events = Event::orderBy('updated_at', 'desc')->paginate($perPage);
+            }
+           
         }
+        return $events;
+    }
+
+    public static function my_events($perPage = 10 , $search,$type=null)
+    {
+        /* dd($search); */
+        if ($type != null && $type != "null"){
+            $events = Auth::user()->events()->where('type', $type)->orderBy('updated_at', 'desc')->paginate($perPage);
+        }else{
+            $events = Auth::user()->events()->orderBy('updated_at', 'desc')->paginate($perPage);
+        }
+      
+        /* $events->category()->searchable(); */
         return $events;
     }
 
@@ -44,5 +62,11 @@ class EventService
     public static function update(&$values, &$event)
     {
         $event->update($values);
+    }
+
+    public static function join(&$event)
+    {
+        $user_id = Auth::id();
+        $event->users()->attach([$user_id]);
     }
 }

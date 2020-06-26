@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
     Route::post('user/specialty_delete/{user}', 'UserController@delete_specialty');
     Route::post('user/workspace_delete/{user}', 'UserController@delete_workspace');
     Route::get('user/me', 'UserController@me');
+    Route::post('user/read_notifications', 'UserController@read_notifications');
+    
     Route::post('user/change_password/{user}', 'UserController@change_password');
 
 //*treatments
@@ -46,10 +48,14 @@ Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
 //*appointments
     Route::apiResource('appointments', 'AppointmentController');
     Route::get('appointment/treatment/{appointment}', 'AppointmentController@show_treatment');
+    Route::get('appointment/my_appointments', 'AppointmentController@my_appointments');
 
 //*events
     Route::apiResource('events', 'EventController');
+    Route::get('event/my_events', 'EventController@my_events');
+    Route::put('event/join/{event}', 'EventController@join');
     Route::apiResource('event/user', 'EventUserController');
+    
 
 //*specialties
     Route::apiResource('specialties', 'SpecialtyController');

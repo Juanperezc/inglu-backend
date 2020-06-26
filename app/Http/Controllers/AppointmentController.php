@@ -1,19 +1,22 @@
 <?php
-
 namespace App\Http\Controllers;
 
-
-use Illuminate\Http\Request;
-use App\Http\Resources\Appointment\AppointmentResource;
-use App\Http\Requests\Appointment\AppointmentRequest;
-use App\Http\Resources\Treatment\TreatmentResource;
-use App\Services\AppointmentService;
 use App\Appointment;
+
+use App\Http\Requests\Appointment\AppointmentRequest;
+use App\Http\Resources\Appointment\AppointmentResource;
+use App\Http\Resources\Treatment\TreatmentResource;
+use App\Notifications\NewAppointment;
+use App\Services\AppointmentService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class AppointmentController extends Controller
 {
     //
-      /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -25,6 +28,21 @@ class AppointmentController extends Controller
         $search = $request->input('search');
         $all = $request->input('all', false);
         return AppointmentResource::collection(AppointmentService::all($perPage, $search));
+    }
+
+      //
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function my_appointments(Request $request)
+    {
+        //
+        $perPage = $request->input('per_page', 10);
+        $search = $request->input('search');
+        $all = $request->input('all', false);
+        return AppointmentResource::collection(AppointmentService::my_appointments($perPage, $search));
     }
 
     /**
@@ -47,7 +65,17 @@ class AppointmentController extends Controller
     {
         $validate = $request->validated();
         $appointment = AppointmentService::store($validate);
+
+        //* notify
         
+        //?patient
+        $appointment_date = Carbon::parse($appointment->date)->timezone('America/Caracas')->format('d-m-Y g:i A');
+        $doctor_name = $appointment->medical->name;
+        $location = $appointment->workspace->location;
+        Notification::send($appointment->patient, new NewAppointment($appointment_date, $doctor_name, $location));
+
+        //?doctor?
+
         return $appointment;
     }
 
@@ -66,12 +94,12 @@ class AppointmentController extends Controller
     public function show_treatment(Appointment $appointment)
     {
         //
-        if ($appointment->treatment){
+        if ($appointment->treatment) {
             return new TreatmentResource($appointment->treatment);
-        }else {
-          return response(['data' => null], 200);
+        } else {
+            return response(['data' => null], 200);
         }
-    
+
     }
     /**
      * Show the form for editing the specified resource.

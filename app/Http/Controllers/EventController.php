@@ -2,26 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Resources\Event\EventResource;
-use App\Http\Requests\Event\EventRequest;
-use App\Services\EventService;
 use App\Event;
+use App\Http\Requests\Event\EventRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\Event\EventResource;
+use App\Services\EventService;
+use Illuminate\Http\Request;
+
 class EventController extends Controller
 {
     //
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        //
+        //\
+        $type = $request->input('type', null);
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
         $all = $request->input('all', false);
-        return EventResource::collection(EventService::all($perPage, $search));
+        return EventResource::collection(EventService::all($perPage, $search, $type));
+    }
+
+    public function my_events(Request $request)
+    {
+        //
+        $type = $request->input('type', null);
+        $perPage = $request->input('per_page', 10);
+        $search = $request->input('search');
+        $all = $request->input('all', false);
+        return EventResource::collection(EventService::my_events($perPage, $search, $type));
     }
 
     /**
@@ -55,7 +68,9 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return new EventResource($event);
+        $user = Auth::user();
+        return (new EventResource($event))->user($user);
+     
     }
 
     /**
@@ -63,7 +78,7 @@ class EventController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-    */
+     */
     public function edit($id)
     {
         //
@@ -74,11 +89,18 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
-    */
+     */
     public function update(EventRequest $request, Event $event)
     {
         $validate = $request->validated();
         EventService::update($validate, $event);
+        return new EventResource($event);
+    }
+
+
+    public function join(Event $event)
+    {
+        EventService::join($event);
         return new EventResource($event);
     }
 

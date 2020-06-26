@@ -7,10 +7,17 @@ use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(Event::class, function (Faker $faker) {
+    $types = [
+        "Actividad fisica",
+        "Apoyo psicologico",
+        "Integración comunitaria y familiar",
+        "Conferencias",
+        "Recreación"];
+
     return [
         'name' => $faker->realText(15),
         'description' => $faker->realText(50),
-        'type' =>  $faker->realText(15),
+        'type' =>  $types[rand(0, 4)],
         'location' => $faker->realText(30),
         'limit' => rand(10,50),
         'picture' => 'https://placeimg.com/100/100/any?' . rand(1, 100),

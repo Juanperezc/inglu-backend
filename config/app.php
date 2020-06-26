@@ -168,6 +168,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Arcanedev\LaravelLang\LaravelLangServiceProvider::class,
         Matthewbdaly\LaravelAzureStorage\AzureStorageServiceProvider::class,
+        NotificationChannels\OneSignal\OneSignalServiceProvider::class,
         /*
          * Application Service Providers...
          */

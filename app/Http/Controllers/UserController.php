@@ -226,6 +226,16 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+    public function read_notifications()
+    {
+        //
+        $user = Auth::user();
+        foreach ($user->unreadNotifications as $notification) {
+            $notification->markAsRead();
+        }
+        return new UserResource($user);
+    }
+
     public function logout()
     {
         //* pasar al servicio?

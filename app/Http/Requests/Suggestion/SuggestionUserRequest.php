@@ -24,6 +24,8 @@ class SuggestionUserRequest extends FormRequest
     public function rules()
     {
         return [
+            'text' => ['required'],
+            'suggestion_id' => ['required'],
             'status' => ['required'],
         ];
     }

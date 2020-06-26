@@ -40,7 +40,6 @@ class SpecialtyController extends Controller
     {
         $validate = $request->validated();
         $specialty = SpecialtyService::store($validate);
-        
         return new SpecialtyResource($specialty);
     }
 
