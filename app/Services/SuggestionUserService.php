@@ -31,6 +31,7 @@ class SuggestionUserService
         try {
             DB::beginTransaction();
         /*  $values['status'] = "enabled"; */
+            $values["user_id"] = Auth::id();
             $suggestionUser = SuggestionUser::make($values);
             $suggestionUser->save();
             DB::commit();

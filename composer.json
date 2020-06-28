@@ -17,6 +17,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "laravel-notification-channels/onesignal": "^2.1",
         "laravel/framework": "^7.0",
+        "laravel/horizon": "^4.3",
         "laravel/passport": "^8.4",
         "laravel/scout": "^8.0",
         "laravel/telescope": "^3.5",

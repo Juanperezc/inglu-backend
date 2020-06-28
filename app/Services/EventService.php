@@ -19,12 +19,12 @@ class EventService
     {
         /* dd($search); */
         if ($search){
-            $events = Event::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
+            $events = Event::search($search)->orderBy('date', 'desc')->paginate($perPage);
         }else{
             if ($type != null && $type != "null"){
-                $events = Event::where('type', $type)->orderBy('updated_at', 'desc')->paginate($perPage);
+                $events = Event::where('type', $type)->orderBy('date', 'desc')->paginate($perPage);
             }else{
-                $events = Event::orderBy('updated_at', 'desc')->paginate($perPage);
+                $events = Event::orderBy('date', 'desc')->paginate($perPage);
             }
            
         }
@@ -35,9 +35,9 @@ class EventService
     {
         /* dd($search); */
         if ($type != null && $type != "null"){
-            $events = Auth::user()->events()->where('type', $type)->orderBy('updated_at', 'desc')->paginate($perPage);
+            $events = Auth::user()->events()->where('type', $type)->orderBy('date', 'desc')->paginate($perPage);
         }else{
-            $events = Auth::user()->events()->orderBy('updated_at', 'desc')->paginate($perPage);
+            $events = Auth::user()->events()->orderBy('date', 'desc')->paginate($perPage);
         }
       
         /* $events->category()->searchable(); */

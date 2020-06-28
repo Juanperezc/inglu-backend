@@ -78,9 +78,10 @@ class EventUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
     */
-    public function update(EventUserRequest $request, EventUser $event_user)
+    public function update(EventUserRequest $request,  $event_user)
     {
         $validate = $request->validated();
+        $event_user = EventUser::find($event_user);
         EventUserService::update($validate, $event_user);
         return new EventUserResource($event_user);
     }

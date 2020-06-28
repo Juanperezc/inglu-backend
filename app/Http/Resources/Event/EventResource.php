@@ -27,6 +27,22 @@ class EventResource extends JsonResource
             return $item->id == $this->user->id;
         })->first() : null;
         /* return  $pluck_users_id; */
+        $status = null;
+        switch($this->status){
+            case "enable": {
+                $status = 1;
+            break;
+            }
+            case "disabled": {
+                $status = 2;
+            break;
+            }
+            case "terminated": {
+                $status = 3;
+            break;
+            }
+        }
+
        return [
             'id' => $this->id,
             "name" => $this->name,
@@ -37,10 +53,11 @@ class EventResource extends JsonResource
             "limit" =>$this->limit,
             "type" => $this->type,
             "location" => $this->location,
-            "status" => $this->status == 'enabled' ? 0: 1,
+            "status" => $status,
             'updated_at' =>  $this->updated_at,
             'created_at' =>  $this->created_at,
             'is_event_user' => $this->user && $pluck_users_id->search($this->user->id) ? 1 : 0,
+            'event_user_id' =>  $is_event_user == 1 ? $event_user->pivot->id : null,
             'comment' => $is_event_user == 1 ? $event_user->pivot->comment : null,
             'qualification' => $is_event_user == 1 ? $event_user->pivot->qualification : null,
 

@@ -10,6 +10,7 @@ class EventUser extends Pivot
     use Searchable;
     protected $table = 'event_user';
     protected $fillable = [
+        'event_id', 'user_id',
         'comment', 'qualification', 'status'
     ];
 

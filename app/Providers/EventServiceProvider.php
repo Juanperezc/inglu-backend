@@ -7,6 +7,9 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
+use App\Events\EvetSaved as EventSavedE;
+use App\Listeners\EvetSaved as EventSavedL;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -18,6 +21,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        EventSavedE::class => [
+            EventSavedL::class,
+        ],
+        
     ];
 
     /**

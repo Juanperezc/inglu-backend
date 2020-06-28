@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Event;
+use App\Observers\EventObserver;
+use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+       /*  Log::info("Test"); */
+        Event::observe(EventObserver::class);
     }
 }

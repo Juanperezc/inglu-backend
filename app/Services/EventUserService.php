@@ -43,6 +43,6 @@ class EventUserService
 
     public static function update(&$values, &$event_user)
     {
-        $event_user->update($values);
+       return $event_user->update($values);
     }
 }

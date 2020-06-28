@@ -24,7 +24,7 @@ class CreateEventsTable extends Migration
             $table->string('location', 255);
             $table->bigInteger('doctor_id')->unsigned()->nullable()->index();
             $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
-            $table->enum('status', ['enable', 'disabled'])->nullable()->default('enable');
+            $table->enum('status', ['enable', 'disabled', 'terminated'])->nullable()->default('enable');
             $table->softDeletes();
             $table->timestamps();
         });

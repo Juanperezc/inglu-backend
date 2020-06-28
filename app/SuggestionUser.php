@@ -9,7 +9,7 @@ class SuggestionUser extends Pivot
 {
     use Searchable;
     protected $table = "suggestion_user";
-    protected $fillable = ['text', 'status','suggestion_id'];
+    protected $fillable = ['text', 'status','suggestion_id','user_id'];
     //
     public function toSearchableArray()
     {
