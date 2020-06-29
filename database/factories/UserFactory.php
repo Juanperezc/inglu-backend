@@ -63,10 +63,10 @@ $factory->afterCreating(User::class, function ($row, $faker) {
 //doctor
     }
     $row->roles()->attach($role);
-    $row->claims()->attach(rand(1,3),['text' => $faker->realText(20),
-    'status' => rand(0,1)]);
-    $row->suggestions()->attach(rand(1,3),['text' => $faker->realText(20),
-    'status' => rand(0,1)]);
+    //$row->claims()->attach(rand(1,3),['text' => $faker->realText(20),
+    //'status' => rand(0,1)]);
+    //$row->suggestions()->attach(rand(1,3),['text' => $faker->realText(20),
+    //'status' => rand(0,1)]);
     $blood_types = [
         "A+",
         "A-",
