@@ -13,12 +13,23 @@ $factory->define(Event::class, function (Faker $faker) {
         "Integración comunitaria y familiar",
         "Conferencias",
         "Recreación"];
-
+    $names = [
+        "Rally familiar",
+        "Partido amistodo de basquetbol",
+        "Introduccion a la diabetes",
+        "Espacio de consejeria abierto a los familiares de diabeticos",
+        "Fiesta de Fin de año del club"];
+    $locations = [
+        "Torre 1, espacio 4",
+        "Club campestre los ruiseñores",
+        "Torre 2, area común",
+        "Area común principal",
+        "Torre 1, espacio 2"];
     return [
-        'name' => $faker->realText(15),
+        'name' => $names[rand(0, 4)],
         'description' => $faker->realText(50),
         'type' =>  $types[rand(0, 4)],
-        'location' => $faker->realText(30),
+        'location' => $locations[rand(0, 4)],
         'limit' => rand(10,50),
         'picture' => 'https://placeimg.com/100/100/any?' . rand(1, 100),
         'date' => $faker->dateTimeBetween('-30 days','+30 days'),
