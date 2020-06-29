@@ -61,8 +61,9 @@ class UserSeeder extends Seeder
         'password' => '20111222',
         'phone' => '04245869872',
         'address' => "Carrera 10 entre 13 y 15",
-        'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/medics/pedro.jpg"
-       ]);
+        'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/medics/pedro.jpg",
+        'specialty_id' => rand(1,8)
+        ]);
        $pedro->roles()->attach(2);
        $rafael =  User::create([
         'name' => "Rafael",
@@ -74,7 +75,8 @@ class UserSeeder extends Seeder
         'password' => '20111222',
         'phone' => '04245869872',
         'address' => "Avenida 10 con calle 19",
-        'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/medics/rafael.jpg"
+        'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/medics/rafael.jpg",
+        'specialty_id' => rand(1,8)
        ]);
        $rafael->roles()->attach(2);
        $maria =  User::create([
@@ -87,8 +89,9 @@ class UserSeeder extends Seeder
         'password' => '20111222',
         'phone' => '04245869872',
         'address' => "Res Carvajal Torre 1, #38",
-        'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/medics/maria.jpg"
-       ]);
+        'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/medics/maria.jpg",
+        'specialty_id' => rand(1,8)
+        ]);
        $maria->roles()->attach(2);
        $cristina =  User::create([
         'name' => "Cristina",
@@ -100,8 +103,9 @@ class UserSeeder extends Seeder
         'password' => '20111222',
         'phone' => '04150219362',
         'address' => "Carrera 18 entre 30 y 31",
-        'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/medics/cristina.jpeg"
-       ]);
+        'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/medics/cristina.jpeg",
+        'specialty_id' => rand(1,8)
+        ]);
        $cristina->roles()->attach(2);
        $laura =  User::create([
         'name' => "Laura",
@@ -113,8 +117,9 @@ class UserSeeder extends Seeder
         'password' => '20111222',
         'phone' => '04164205501',
         'address' => "Calle 10 entre 12 y 13",
-        'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/medics/laura.jpg"
-       ]);
+        'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/medics/laura.jpg",
+        'specialty_id' => rand(1,8)
+        ]);
        $laura->roles()->attach(2);
        //Pacientes
        $michael =  User::create([
@@ -128,7 +133,7 @@ class UserSeeder extends Seeder
         'phone' => '04245039650',
         'address' => "Residencias roca del valle 3 #10",
         'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/patients/michael.jpg"
-       ]);
+        ]);
        $michael->roles()->attach(4);
        $luis =  User::create([
         'name' => "Luis",
