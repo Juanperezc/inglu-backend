@@ -10,6 +10,8 @@ use App\MedicalRecord;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 /* use App\Transaction; */
 
 class UserService
@@ -36,6 +38,21 @@ class UserService
         } */
         } else {
             abort(403, 'Unauthorized');
+        }
+    }
+
+    public static function recover_password($values)
+    {
+        $user = User::find($values["email"]);
+     
+        $hash = Str::random(6);
+        $user->password = $hash;
+        $user->save();
+        if ($user){
+
+            return ["user" => $user, "password" => $hash ];
+        }else{
+            return null;
         }
     }
 

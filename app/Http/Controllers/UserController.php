@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Notifications\RecoverPassword;
 use App\Http\Requests\User\LoginRequest;
+use App\Http\Requests\User\RecoverPassword;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
@@ -204,6 +206,17 @@ class UserController extends Controller
         $user = UserService::login($validate);
         return new UserAuthResource($user);
         //return new UserResource($user);
+    }
+
+    public function recover_password(RecoverPassword $request)
+    {
+        //code...
+        $validate = $request->validated();
+        $recover_password = UserService::recover_password($validate);
+          //* notify
+        Notification::send($recover_password["user"], new RecoverPassword($recover_password["email"]));
+        return new UserResource($recover_password);
+          //return new UserResource($user);
     }
 
     public function change_password(ChangePasswordRequest $request, User $user)

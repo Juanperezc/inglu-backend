@@ -80,10 +80,10 @@ $factory->afterCreating(User::class, function ($row, $faker) {
 
     //* Cambios
     if (/* $role != 4 */ $row->type == 1){
-        $row->claims()->attach(rand(1,3),['text' => $faker->realText(20),
+        /* $row->claims()->attach(rand(1,3),['text' => $faker->realText(20),
         'status' => rand(0,1)]);
         $row->suggestions()->attach(rand(1,3),['text' => $faker->realText(20),
-        'status' => rand(0,1)]);
+        'status' => rand(0,1)]); */
         MedicalRecord::create([
             "blood_type" => $blood_types[rand(0,7)],
             "patient_status" => $faker->realText(20),
