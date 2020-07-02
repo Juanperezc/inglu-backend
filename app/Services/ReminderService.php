@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Services;
+
+use App\Reminder;
+use Illuminate\Support\Facades\Auth;
+use Exception;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Laravel\Passport\Passport;
+
+/* use App\Transaction; */
+use Illuminate\Support\Facades\Notification;
+
+class ReminderService
+{
+
+    public static function all($perPage = 10 , $search)
+    {
+        /* dd($search); */
+        if ($search){
+            $reminder = Reminder::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
+        }else{
+            $reminder = Reminder::orderBy('updated_at', 'desc')->paginate($perPage);
+        }
+        return $reminder;
+    }
+
+    public static function my_reminders($perPage = 10 , $search)
+    {
+        /* dd($search); */
+        $user_id = Auth::id();
+        $reminder = Reminder::where('user_id', $user_id)->orderBy('date', 'desc')->paginate($perPage);
+        return $reminder;
+    }
+
+
+    public static function store(&$values)
+    {
+        try {
+            DB::beginTransaction();
+        /*  $values['status'] = "enabled"; */
+            $reminder = Reminder::make($values);
+            $reminder->save();
+            DB::commit();
+            return $reminder;
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    public static function update(&$values, &$reminder)
+    {
+        $reminder->update($values);
+    }
+}

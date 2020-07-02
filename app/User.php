@@ -86,6 +86,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Appointment', 'patient_id');
     }
 
+    public function reminders()
+    {
+        return $this->hasMany('App\Reminder', 'user_id');
+    }
+
     public function medical_record()
     {
         return $this->hasOne('App\MedicalRecord', 'user_id');

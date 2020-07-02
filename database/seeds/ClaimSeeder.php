@@ -11,10 +11,11 @@ class ClaimSeeder extends Seeder
      */
     public function run()
     {
-        Claim::create([
+         Claim::create([
         "description" => "Tengo una queja acerca del Club",
         "type" => "Club/Coordinación",
         ]);
+       
         Claim::create([
             "description" => "Tengo una queja acerca del Medico",
             "type" => "Club/Personal",

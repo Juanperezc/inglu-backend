@@ -143,6 +143,6 @@ class UserSeeder extends Seeder
         'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/profile/patients/luis.jpg"
        ]);
        $luis->roles()->attach(4);
-       factory(User::class, 3)->create();
+       factory(User::class, 10)->create();
     }
 }

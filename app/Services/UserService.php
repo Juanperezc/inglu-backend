@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\User;
+use App\Specialty;
 use App\UserWorkspace;
 use App\UserWorkspaceTime;
 use App\MedicalRecord;
@@ -64,6 +65,16 @@ class UserService
         }
 
         return $user;
+    }
+
+    public static function all_doctors_by_specialty($specialty_id)
+    {
+            $specialty = Specialty::find($specialty_id);
+            if ($specialty){
+                return $specialty->users;
+            }else{
+                return null;
+            }
     }
 
     public static function all($perPage, $search, $sort)

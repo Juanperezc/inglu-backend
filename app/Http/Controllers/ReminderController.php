@@ -2,39 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Event;
-use App\Http\Requests\Event\EventRequest;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\Event\EventResource;
-use App\Services\EventService;
 use Illuminate\Http\Request;
+use App\Http\Resources\Reminder\ReminderResource;
+use App\Http\Requests\Reminder\ReminderRequest;
+use App\Services\ReminderService;
+use App\Notifications\NewReminder;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Reminder;
 
-class EventController extends Controller
+class ReminderController extends Controller
 {
-    //
-    /**
+ /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        //\
-        $type = $request->input('type', null);
+        //
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
         $all = $request->input('all', false);
-        return EventResource::collection(EventService::all($perPage, $search, $type));
+        return ReminderResource::collection(ReminderService::all($perPage, $search));
     }
 
-    public function my_events(Request $request)
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function my_reminders(Request $request)
     {
-        //
-        $type = $request->input('type', null);
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
         $all = $request->input('all', false);
-        return EventResource::collection(EventService::my_events($perPage, $search, $type));
+        return ReminderResource::collection(ReminderService::my_reminders($perPage, $search));
     }
 
     /**
@@ -53,25 +58,31 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EventRequest $request)
+    public function store(ReminderRequest $request)
     {
-        $user = Auth::user();
         $validate = $request->validated();
-        $event = EventService::store($validate);
-        return (new EventResource($event))->user($user);
-        //
+        $reminder = ReminderService::store($validate);
+        //* notificacion
+
+        $now = Carbon::now();
+        $date = Carbon::parse($reminder->date);
+        $reminder_id = $reminder->id;
+        $diffInSeconds = $now->diffInSeconds($date,false);
+        Notification::send(Auth::user(), 
+        (new NewReminder($reminder_id))->delay($diffInSeconds));
+        return new ReminderResource($reminder);
     }
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show(Reminder $reminder)
     {
-        $user = Auth::user();
-        return (new EventResource($event))->user($user);
-     
+        //
+        return new ReminderResource($reminder);
     }
 
     /**
@@ -84,6 +95,7 @@ class EventController extends Controller
     {
         //
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -91,18 +103,11 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EventRequest $request, Event $event)
+    public function update(ReminderRequest $request, Reminder $reminder)
     {
         $validate = $request->validated();
-        EventService::update($validate, $event);
-        return new EventResource($event);
-    }
-
-
-    public function join(Event $event)
-    {
-        EventService::join($event);
-        return new EventResource($event);
+        ReminderService::update($validate, $reminder);
+        return new ReminderResource($reminder);
     }
 
     /**
@@ -113,7 +118,8 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        $processed = Event::destroy($id);
+        $processed = Reminder::destroy($id);
         return response(['processed' => $processed], 204);
     }
+
 }

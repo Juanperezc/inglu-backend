@@ -18,7 +18,7 @@ class CreateAppointmentTable extends Migration
             $table->string('condition', 255)->nullable()->default(null);
             $table->integer('qualification')->unsigned()->nullable()->default(0);
             $table->text('comment')->nullable();
-            $table->integer('status')->unsigned()->nullable()->default(0);
+            $table->integer('status')->unsigned()->nullable()->default(1);
             $table->bigInteger('patient_id')->unsigned()->index();
             $table->foreign('patient_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('medical_staff_id')->unsigned()->index();

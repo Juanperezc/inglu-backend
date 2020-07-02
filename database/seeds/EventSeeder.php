@@ -18,7 +18,6 @@ class EventSeeder extends Seeder
             "Integración comunitaria y familiar",
             "Conferencias",
             "Recreación"];
-        
         Event::create([
             'name' => "Clase grupal de Yoga",
             'description' => "Sistema de práctica que combina postura,

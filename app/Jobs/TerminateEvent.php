@@ -39,8 +39,5 @@ class TerminateEvent implements ShouldQueue
             $event->save();
             //Enviar notificacion??
         }
-
-
-
     }
 }

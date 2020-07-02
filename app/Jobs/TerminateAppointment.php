@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-
+use App\Appointment;
 class TerminateAppointment implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -17,8 +17,10 @@ class TerminateAppointment implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    protected $appointment_id;
+    public function __construct($appointment_id)
     {
+        $this->appointment_id = $appointment_id;
         //
     }
 
@@ -30,5 +32,11 @@ class TerminateAppointment implements ShouldQueue
     public function handle()
     {
         //
+        $appointment = Appointment::find($this->appointment_id);
+        if ($appointment){
+            $appointment->status = 3;
+            $appointment->save();
+            //Enviar notificacion??
+        }
     }
 }

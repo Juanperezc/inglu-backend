@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Event;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use Illuminate\Support\Collection;
 class EventResource extends JsonResource
 {
     protected $user;
@@ -21,13 +21,22 @@ class EventResource extends JsonResource
     public function toArray($request)
     {
       
-        $pluck_users_id = $this->user ? $this->users->pluck('id'): []; 
-        $is_event_user = $this->user && $pluck_users_id->search($this->user->id) ? 1 : 0;
-        $event_user = $is_event_user ?  $this->users->filter(function($item) {
-            return $item->id == $this->user->id;
+        $user_id =  $this->user ? $this->user->id : null;
+        $pluck_users_id = $this->user ? $this->users->pluck("id"): collect([]); 
+  /*       $pluck_users_id = is_array($pluck_users_id) ? $pluck_users_id : collect($pluck_users_id); */
+        $is_event_user =  0 ;
+        if ($this->user){
+            foreach ($pluck_users_id as $val ) {
+                if ($val == $user_id) 
+                $is_event_user = 1;
+            }
+        }
+       
+        $event_user = $is_event_user ?  $this->users->filter(function($item) use ($user_id) {
+            return $item->id == $user_id;
         })->first() : null;
-        /* return  $pluck_users_id; */
-        $status = null;
+       /*   return  ["user_Id" => $user_id, "test" =>  $is_event_user, "test2" => $pluck_users_id, "test3" => in_array(10,[10])];  */
+     $status = null;
         switch($this->status){
             case "enable": {
                 $status = 1;
@@ -41,9 +50,9 @@ class EventResource extends JsonResource
                 $status = 3;
             break;
             }
-        }
+        } 
 
-       return [
+        return [
             'id' => $this->id,
             "name" => $this->name,
             "picture" => $this->picture,
@@ -56,11 +65,11 @@ class EventResource extends JsonResource
             "status" => $status,
             'updated_at' =>  $this->updated_at,
             'created_at' =>  $this->created_at,
-            'is_event_user' => $this->user && $pluck_users_id->search($this->user->id) ? 1 : 0,
+            'is_event_user' => $this->user &&  $is_event_user,
             'event_user_id' =>  $is_event_user == 1 ? $event_user->pivot->id : null,
             'comment' => $is_event_user == 1 ? $event_user->pivot->comment : null,
             'qualification' => $is_event_user == 1 ? $event_user->pivot->qualification : null,
 
         ];
-    }
+    } 
 }

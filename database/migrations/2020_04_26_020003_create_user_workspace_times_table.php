@@ -17,7 +17,7 @@ class CreateUserWorkspaceTimesTable extends Migration
             $table->id();
             $table->string('start_time', 255)->nullable()->default(null);
             $table->string('end_time', 255)->nullable()->default(null);
-            $table->string('day', 255)->nullable()->default(null);
+            $table->enum('day', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])->nullable()->default('Monday');
             $table->bigInteger('user_workspace_id')->unsigned()->index();
             $table->foreign('user_workspace_id')->references('id')->on('user_workspace')->onDelete('cascade');
             $table->timestamps();

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\Appointment\AppointmentRequest;
 use App\Http\Resources\Appointment\AppointmentResource;
 use App\Http\Resources\Treatment\TreatmentResource;
@@ -64,19 +65,43 @@ class AppointmentController extends Controller
     public function store(AppointmentRequest $request)
     {
         $validate = $request->validated();
-        $appointment = AppointmentService::store($validate);
+        $appointmentFind = Appointment::where('user_workspace_id', $validate["user_workspace_id"])->get();
+        $error_dates = 0;
+        foreach($appointmentFind as $a) {
+            $date1 = Carbon::parse($a->date)->timestamp;
+            $date2 = Carbon::parse($a->date)->addHours(1)->timestamp;
+            $parseDate = Carbon::parse($validate["date"])->timestamp;
+            $condition1 = $parseDate >= ($date1);
+            $condition2 = $parseDate <= ($date2); 
+          /*     return "date1: " . $date1 . " date2: " . $date2 ." dateparse: " . $parseDate; */
+    /*        return "condition1: " . $condition1 . " condition2: " . $condition2; 
+            */
+          /*   Log::info("condition1:" . $condition1);
+            Log::info("condition2:" . $condition2); */
+          /*   Log::info("condition3:" . $condition1 && $condition2);
+ */
+             if ($condition1
+            && $condition2
+           ){
+            $error_dates++;
+           }
+          
+        }
+        if ($error_dates == 0){
+            $appointment = AppointmentService::store($validate);
 
-        //* notify
-        
-        //?patient
-        $appointment_date = Carbon::parse($appointment->date)->timezone('America/Caracas')->format('d-m-Y g:i A');
-        $doctor_name = $appointment->medical->name;
-        $location = $appointment->workspace->location;
-        Notification::send($appointment->patient, new NewAppointment($appointment_date, $doctor_name, $location));
+            //?patient
+            $appointment_date = Carbon::parse($appointment->date)->timezone('America/Caracas')->format('d-m-Y g:i A');
+            $doctor_name = $appointment->medical->name;
+            $location = $appointment->workspace->location;  
+            //* notify
+            Notification::send($appointment->patient, new NewAppointment($appointment_date, $doctor_name, $location));
+            //?doctor?
+            return $appointment;
+        }else{
+            abort(430, 'Date does not match');
+        }
 
-        //?doctor?
-
-        return $appointment;
     }
 
     /**
@@ -122,8 +147,24 @@ class AppointmentController extends Controller
     public function update(AppointmentRequest $request, Appointment $appointment)
     {
         $validate = $request->validated();
+        $appointmentFind = Appointment::where('user_workspace_id', $validate["user_workspace_id"])->get();
+        $error_dates = 0;
+        foreach($appointmentFind as $a) {
+            $date1 = Carbon::parse($a->date)->timestamp;
+            $date2 = Carbon::parse($a->date)->addHours(1)->timestamp;
+            $parseDate = Carbon::parse($validate["date"])->timestamp;
+            $condition1 = $parseDate >= ($date1);
+            $condition2 = $parseDate <= ($date2); 
+            if ($condition1
+            && $condition2
+            ){
+            $error_dates++;
+            }
+        }
+        if ($error_dates == 0){
         AppointmentService::update($validate, $appointment);
         return new AppointmentResource($appointment);
+        }
     }
 
     /**

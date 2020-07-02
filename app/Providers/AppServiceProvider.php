@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Event;
+use App\Appointment;
 use App\Observers\EventObserver;
+use App\Observers\AppointmentObserver;
 use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
         //
        /*  Log::info("Test"); */
         Event::observe(EventObserver::class);
+        Appointment::observe(AppointmentObserver::class);
     }
 }

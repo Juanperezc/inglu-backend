@@ -22,9 +22,9 @@ class AppointmentService
         /* dd($search); */
       
         if ($search){
-            $appointments = Appointment::search($search)->orderBy('updated_at', 'desc')->paginate($perPage);
+            $appointments = Appointment::search($search)->orderBy('date', 'desc')->paginate($perPage);
         }else{
-            $appointments = Appointment::orderBy('updated_at', 'desc')->paginate($perPage);
+            $appointments = Appointment::orderBy('date', 'desc')->paginate($perPage);
         }
         /* $appointments->category()->searchable(); */
         return $appointments;
@@ -33,7 +33,7 @@ class AppointmentService
     public static function my_appointments($perPage = 10 , $search)
     {
         /* dd($search); */
-        $appointments = Appointment::where('patient_id', Auth::id())->orderBy('updated_at', 'desc')->paginate($perPage);
+        $appointments = Appointment::where('patient_id', Auth::id())->orderBy('date', 'desc')->paginate($perPage);
         /* $appointments->category()->searchable(); */
         return $appointments;
     }

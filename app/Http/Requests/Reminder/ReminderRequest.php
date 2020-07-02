@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Appointment;
+namespace App\Http\Requests\Reminder;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AppointmentRequest extends FormRequest
+class ReminderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +13,7 @@ class AppointmentRequest extends FormRequest
      */
     public function authorize()
     {
+
         return true;
     }
 
@@ -25,12 +26,10 @@ class AppointmentRequest extends FormRequest
     {
         return [
             'date' => ['required'],
-            'condition' => ['required'],
-            'patient_id' => ['required'],
-            'medical_staff_id' => ['required'],
-            'user_workspace_id' => ['nullable'],
-            'qualification' => ['nullable'],
-            'comment' => ['nullable']
+            'title' => ['required'],
+            'description' => ['required'],
+            'status' => ['required'],
+            'user_id' => ['required'],
         ];
     }
 }

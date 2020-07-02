@@ -39,17 +39,7 @@ $factory->define(User::class, function (Faker $faker) {
 //* after creating
 
 $factory->afterCreating(User::class, function ($row, $faker) {
-    $rand_attach = rand(1,1);
-     $row->workspaces()->attach($rand_attach,['location' => $faker->realText(10)]);
-    
-    $user_workspace = UserWorkspace::where(['user_id' => $row->id, 'specialty_id' => $rand_attach])->first();
-  
-    $time = UserWorkspaceTime::create([
-        'start_time' => '18:00',
-         'end_time' => '20:00',
-          'day' => 'Monday',
-          'user_workspace_id' => $user_workspace->id
-    ]);
+
  
    /*  $row->save(); */
     //! role
@@ -60,13 +50,21 @@ $factory->afterCreating(User::class, function ($row, $faker) {
 //patient
     }else if ($row->type == 2){
         $role = 2;
+        $rand_attach = rand(1,1);
+        $rand_specialty = rand(1,8);
+        $row->specialties()->attach($rand_specialty);
+         $row->workspaces()->attach($rand_attach,['location' => $faker->realText(10)]);
+        $user_workspace = UserWorkspace::where(['user_id' => $row->id, 'specialty_id' => $rand_attach])->first();
+        $time = UserWorkspaceTime::create([
+            'start_time' => '18:00',
+             'end_time' => '20:00',
+              'day' => 'Monday',
+              'user_workspace_id' => $user_workspace->id
+        ]);
 //doctor
     }
     $row->roles()->attach($role);
-    $row->claims()->attach(rand(1,3),['text' => $faker->realText(20),
-    'status' => rand(0,1)]);
-    $row->suggestions()->attach(rand(1,3),['text' => $faker->realText(20),
-    'status' => rand(0,1)]);
+   
     $blood_types = [
         "A+",
         "A-",
@@ -79,6 +77,10 @@ $factory->afterCreating(User::class, function ($row, $faker) {
 
     //* Cambios
     if (/* $role != 4 */ $row->type == 1){
+        $row->claims()->attach(rand(1,3),['text' => $faker->realText(20),
+        'status' => rand(0,1)]);
+        $row->suggestions()->attach(rand(1,3),['text' => $faker->realText(20),
+        'status' => rand(0,1)]);
         MedicalRecord::create([
             "blood_type" => $blood_types[rand(0,7)],
             "patient_status" => $faker->realText(20),
@@ -87,6 +89,7 @@ $factory->afterCreating(User::class, function ($row, $faker) {
             "record" => $faker->realText(40),
             "user_id" => $row->id
         ]);
+        
     }
    
 });

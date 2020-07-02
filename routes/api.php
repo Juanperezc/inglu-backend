@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
     Route::apiResource('users', 'UserController');
     Route::get('user/index_patient', 'UserController@index_patient');
     Route::get('user/index_doctors', 'UserController@index_doctors');
+    Route::get('user/index_doctors_specialty', 'UserController@index_doctors_specialty');
     Route::get('user/specialty/{user}', 'UserController@show_specialties');
     Route::get('user/workspace/{user}', 'UserController@show_workspaces');
     Route::get('user/medical_record/{user}', 'UserController@show_medical_record');
@@ -39,7 +40,6 @@ Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
     Route::post('user/workspace_delete/{user}', 'UserController@delete_workspace');
     Route::get('user/me', 'UserController@me');
     Route::post('user/read_notifications', 'UserController@read_notifications');
-    
     Route::post('user/change_password/{user}', 'UserController@change_password');
 
 //*treatments
@@ -55,7 +55,6 @@ Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
     Route::get('event/my_events', 'EventController@my_events');
     Route::put('event/join/{event}', 'EventController@join');
     Route::apiResource('event/user', 'EventUserController');
-    
 
 //*specialties
     Route::apiResource('specialties', 'SpecialtyController');
@@ -82,6 +81,11 @@ Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
         ],
     ]);
 
+
+//*reminers
+Route::resource('reminders', 'ReminderController');
+Route::get('reminder/my_reminders', 'ReminderController@my_reminders');
+
 //*faqs
     Route::resource('faqs', 'FaqController', [
         'except' => [
@@ -101,8 +105,7 @@ Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
     Route::apiResource('suggestion_user', 'SuggestionUserController');
 
 //? Site
-
-//*site_team
+// *site_team
     Route::resource('site_teams', 'SiteTeamController', [
         'except' => [
             'index',

@@ -31,10 +31,10 @@ class DatabaseSeeder extends Seeder
         RolePermissionSeeder::class,
         UserSeeder::class,
         EventSeeder::class, 
-        AppointmentSeeder::class,
         MedicalRecordSeeder::class,
         PostCategorySeeder::class,
         PostSeeder::class,
+        AppointmentSeeder::class
         ]);
     }
 }

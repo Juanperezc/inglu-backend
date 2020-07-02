@@ -67,6 +67,7 @@ class EventService
     public static function join(&$event)
     {
         $user_id = Auth::id();
-        $event->users()->attach([$user_id]);
+       $event->users()->sync([$user_id]);
+  /*     $event->save(); */
     }
 }

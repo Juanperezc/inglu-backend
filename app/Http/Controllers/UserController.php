@@ -41,6 +41,12 @@ class UserController extends Controller
         $all = $request->input('all', false);
         return UserResource::collection(UserService::all_doctors($perPage, $search));
     }
+  
+    public function index_doctors_specialty(Request $request)
+    {
+        $specialty_id = $request->input('specialty_id', 1);
+        return UserResource::collection(UserService::all_doctors_by_specialty($specialty_id));
+    }
 
     public function index_patient(Request $request)
     {
