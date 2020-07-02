@@ -17,7 +17,7 @@ class ClaimUserResource extends JsonResource
         return [
             'id' => $this->id,
             'text' => $this->text,
-            'description' => $this->claim ? ($this->claim->description) : null,
+            'description' => $this->claim ? ($this->claim->type) : null,
             'user' => $this->user ? ($this->user->name . " " .  $this->user->last_name) : null,
             'updated_at' => $this->updated_at ? $this->updated_at->format('d-m-Y H:i') : null,
             'status' => $this->status

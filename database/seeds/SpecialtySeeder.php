@@ -39,7 +39,7 @@ class SpecialtySeeder extends Seeder
         ]);
         Specialty::create([
             "name" => "Nefrología",
-            "picture" => "https://ingludiag.blob.core.windows.net/resources/image/specialty/nefrologia.png",
+            "picture" => "https://ingludiag.blob.core.windows.net/resources/image/specialty/nefrologia.jpg",
             "description" => "La nefrología es la especialidad médica rama de la medicina interna
             que se ocupa del estudio de la estructura y la función renal, tanto en la salud como
             en la enfermedad, incluyendo la prevención y tratamiento de las enfermedades renales.",

@@ -21,6 +21,7 @@ class EventUserResource extends JsonResource
         'date' => $this->event ?  $this->event->date->format('d-m-Y H:i') : null,
         'updated_at' => $this->updated_at,
         'user' => $this->user ? ($this->user->name . " " .  $this->user->last_name) : null,
+        'profile_pic' => $this->user ? ($this->user->profile_pic) : null,
         'event' => $this->event ? ($this->event->name) : null,
         'description' => $this->event ? ($this->event->description) : null,
         'status' => ( $this->status == "send" ) ? 1 : (( $this->status == "confirmed" ) ? 2 : 3) 
