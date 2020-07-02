@@ -43,9 +43,10 @@ class RecoverPassword extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)->
-        subject('Nueva cita agendada')->
-        markdown('mail.appointment.new',
-        ["email" => $notifiable->email,
+        subject('Recuperación de contraseña')->
+        markdown('mail.password.recover',
+        [
+        "email" => $notifiable->email,
         "name" => $notifiable->name,
         "recover_password" => $this->recover_password
         ]);

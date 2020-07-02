@@ -19,6 +19,9 @@ Passport::routes(null, ['middleware' => 'auth:api']);
 //* auth
 Route::post('login', 'UserController@login')->name('login');
 
+//*users
+Route::post('user/recover_password', 'UserController@recover_password');
+
 //todo GROUP AUTH
 Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
 
@@ -34,6 +37,7 @@ Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
     Route::get('user/workspace/{user}', 'UserController@show_workspaces');
     Route::get('user/medical_record/{user}', 'UserController@show_medical_record');
     Route::put('user/medical_record/{user}', 'UserController@update_medical_record');
+    
     Route::post('user/specialty/{user}', 'UserController@store_specialty');
     Route::post('user/workspace/{user}', 'UserController@store_workspace');
     Route::post('user/specialty_delete/{user}', 'UserController@delete_specialty');

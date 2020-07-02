@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RecoverPassword extends FormRequest
+class RecoverPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class RecoverPassword extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class RecoverPassword extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'required|exists:users',
         ];
     }
 }

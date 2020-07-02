@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 class RecoverPassword extends Mailable
 {
     use Queueable, SerializesModels;
+    public $email, $name, $recover_password;
 
     /**
      * Create a new message instance.

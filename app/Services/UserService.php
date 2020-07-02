@@ -43,13 +43,13 @@ class UserService
 
     public static function recover_password($values)
     {
-        $user = User::find($values["email"]);
-     
+        $user = User::where('email', $values["email"])->first();
+        \Log::info('email' . $values["email"]);
         $hash = Str::random(6);
+        \Log::info('hash' . $hash);
         $user->password = $hash;
         $user->save();
         if ($user){
-
             return ["user" => $user, "password" => $hash ];
         }else{
             return null;
