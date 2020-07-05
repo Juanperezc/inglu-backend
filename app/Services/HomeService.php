@@ -76,7 +76,7 @@ class HomeService
             "doctor_counts" => $doctor_counts
             ];
         }else{
-            $appointment_counts = Appointment::where('medical_staff_id', Auth::id)->count();
+            $appointment_counts = Appointment::where('medical_staff_id', Auth::id())->count();
             return [
             "specialties" => [],
             "patient_gender" => [],

@@ -5,11 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Contact extends Model
 {
     use Searchable;
     use SoftDeletes;
+    use Notifiable;
     protected $fillable = [
         
     'name',

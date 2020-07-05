@@ -38,7 +38,7 @@ class AppointmentResource extends JsonResource
             'treatment_medicine' => $this->treatment ? $this->treatment->medicine : null,
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
-            'patient_id' => $this->patient_id,
+            'patient_id' => $this->patient_id ? $this->patient_id : 0,
             'medical_staff_id' => $this->medical_staff_id,
             'user_workspace_id' => $this->user_workspace_id,
             'comment' => $this->comment,

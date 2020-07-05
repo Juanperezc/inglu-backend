@@ -8,9 +8,9 @@ use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Passport;
-
-/* use App\Transaction; */
+use App\Notifications\RejectContact;
 use Illuminate\Support\Facades\Notification;
+
 
 class ContactService
 {
@@ -43,5 +43,8 @@ class ContactService
     public static function update(&$values, &$contact)
     {
         $contact->update($values);
+        if ($values["status"] == 3){
+            Notification::send($contact, new RejectContact());
+        }
     }
 }

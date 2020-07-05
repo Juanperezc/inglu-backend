@@ -20,12 +20,21 @@ class AppointmentService
     public static function all($perPage = 10 , $search)
     {
         /* dd($search); */
-      
+      $user = Auth::user();
+      if ($user->getRoleNames()[0] == "admin"){
         if ($search){
             $appointments = Appointment::search($search)->orderBy('date', 'desc')->paginate($perPage);
         }else{
             $appointments = Appointment::orderBy('date', 'desc')->paginate($perPage);
         }
+      }else{
+        if ($search){
+            $appointment_ids = Appointment::search($search)->orderBy('date', 'desc')->get()->pluck('id');
+            $appointments = Appointment::where('id', $appointment_ids)->where('medical_staff_id', Auth::id())->orderBy('date', 'desc')->paginate($perPage);
+        }else{
+            $appointments = Appointment::where('medical_staff_id', Auth::id())->orderBy('date', 'desc')->paginate($perPage);
+        }
+      }
         /* $appointments->category()->searchable(); */
         return $appointments;
     }

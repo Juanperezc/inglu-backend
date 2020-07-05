@@ -26,7 +26,7 @@ class AppointmentRequest extends FormRequest
         return [
             'date' => ['required'],
             'condition' => ['required'],
-            'patient_id' => ['required'],
+            'patient_id' => ['nullable'],
             'medical_staff_id' => ['required'],
             'user_workspace_id' => ['nullable'],
             'contact_id' => ['nullable'],

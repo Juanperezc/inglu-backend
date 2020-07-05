@@ -80,7 +80,7 @@ class UserController extends Controller
     {
         $validate = $request->validated();
         UserService::update_medical_record($validate, $user);
-        return new UserMedicalRecordResource($user->medical_record);
+        return /* new UserMedicalRecordResource( */$user;/* ); */
     }
 
     /**
