@@ -10,7 +10,7 @@ class Appointment extends Model
     protected $dates = ['date', 'updated_at', 'created_at'];
     protected $fillable = [
         'date', 'condition', 'qualification',
-        'comment', 'status', 'patient_id',
+        'comment', 'status', 'patient_id','contact_id',
         'medical_staff_id', 'user_workspace_id'
     ];
 
@@ -18,6 +18,7 @@ class Appointment extends Model
     {
         return [
             'patient' => $this->patient ? ($this->patient->name . " " . $this->patient->last_name) : null,
+            'doctor' => $this->medical ? ($this->medical->name . " " . $this->medical->last_name) : null,
             'date' => $this->date,
             'condition' => $this->condition,
             'updated_at' => $this->updated_at ? $this->updated_at->format('d-m-Y H:i') : null,
@@ -28,9 +29,15 @@ class Appointment extends Model
     {
         return $this->belongsTo('App\User', 'medical_staff_id');
     }
+
     public function patient()
     {
         return $this->belongsTo('App\User', 'patient_id');
+    }
+
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact', 'contact_id');
     }
 
     public function treatment()

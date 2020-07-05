@@ -10,29 +10,32 @@ class Contact extends Model
 {
     use Searchable;
     use SoftDeletes;
-
     protected $fillable = [
-        'name',
-        'email',
-        'address',
-        'phone',
-        'gender',
-        'status',
-        'id_card',
-        'last_name',
-        'date_of_birth',
-        'type'
+        
+    'name',
+    'reject',
+    'email',
+    'address',
+    'phone',
+    'gender',
+    'status',
+    'id_card',
+    'last_name',
+    'date_of_birth',
+    'type'
     ];
-    //
+
+    public function contact_appointments()
+    {
+        return $this->hasMany('App\Contact', 'contact_id');
+    }
+
     public function toSearchableArray()
     {
-      /*   $array = $this->toArray(); */
         return [
-          
             'name' => $this->name,
             'last_name' => $this->last_name,
             'address' => $this->address,
-           
         ];
     }
 

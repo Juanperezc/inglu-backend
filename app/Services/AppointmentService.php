@@ -33,11 +33,20 @@ class AppointmentService
     public static function my_appointments($perPage = 10 , $search)
     {
         /* dd($search); */
+        $user = Auth::user();
+        if ($user->type == 1){
         $appointments = Appointment::where('patient_id', Auth::id())->orderBy('date', 'desc')->paginate($perPage);
+        }else{
+        $appointments = Appointment::where('medical_staff_id', Auth::id())->orderBy('date', 'desc')->paginate($perPage);
+        }
+       
         /* $appointments->category()->searchable(); */
         return $appointments;
     }
-    
+    public static function appointment_by_user($perPage = 10 , $id){
+        $appointments = Appointment::where('patient_id', $id)->orderBy('date', 'desc')->paginate($perPage);
+        return $appointments;
+    }
 
     public static function store(&$values)
     {

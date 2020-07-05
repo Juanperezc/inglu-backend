@@ -86,10 +86,10 @@ $factory->afterCreating(User::class, function ($row, $faker) {
         'status' => rand(0,1)]); */
         MedicalRecord::create([
             "blood_type" => $blood_types[rand(0,7)],
-            "patient_status" => $faker->realText(20),
+          /*   "patient_status" => $faker->realText(20), */
             "pathologies" => $faker->realText(20),
             "treatments" => $faker->realText(80),
-            "record" => $faker->realText(40),
+         /*    "record" => $faker->realText(40), */
             "user_id" => $row->id
         ]);
         

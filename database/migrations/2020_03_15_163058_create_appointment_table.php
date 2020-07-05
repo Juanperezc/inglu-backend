@@ -18,13 +18,17 @@ class CreateAppointmentTable extends Migration
             $table->string('condition', 255)->nullable()->default(null);
             $table->integer('qualification')->unsigned()->nullable()->default(0);
             $table->text('comment')->nullable();
-            $table->integer('status')->unsigned()->nullable()->default(1);
-            $table->bigInteger('patient_id')->unsigned()->index();
+            $table->integer('status')->unsigned()->nullable()->default();
+            $table->bigInteger('patient_id')->unsigned()->nullable()->default(null)->index();
             $table->foreign('patient_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('contact_id')->unsigned()->nullable()->default(null)->index();
+            $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
             $table->bigInteger('medical_staff_id')->unsigned()->index();
             $table->foreign('medical_staff_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('user_workspace_id')->unsigned()->nullable()->default(null)->index();
+
             $table->foreign('user_workspace_id')->references('id')->on('user_workspace')->onDelete('cascade');
+
             $table->timestamps();
             /* $table->primary(['patient_id', 'medical_staff_id', 'workspace_id']); */
         });

@@ -9,6 +9,7 @@ use Laravel\Passport\HasApiTokens;
 use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
 
 
 
@@ -41,6 +42,8 @@ class User extends Authenticatable
     ];
 
 
+    protected $appends = ['age'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -69,7 +72,12 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($pass);
     }
-    
+
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->attributes['date_of_birth'])->age;
+    }
+
     public function medical_appointments()
     {
         return $this->hasMany('App\Appointment', 'medical_staff_id');

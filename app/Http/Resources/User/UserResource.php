@@ -23,6 +23,7 @@ class UserResource extends JsonResource
             "profile_pic" => $this->profile_pic,
             "date_of_birth" =>$this->date_of_birth,
             "type" => $this->type,
+            "rol" => $this->getRoleNames(),
             "phone" => $this->phone,
             "address" => $this->address,
             "gender" => $this->gender,

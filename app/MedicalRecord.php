@@ -10,13 +10,16 @@ class MedicalRecord extends Model
     //
     use SoftDeletes;
 
-    protected $fillable = [
+    protected $casts = [
+        'pathologies' => 'array'
+    ];
+    /* protected $fillable = [
         "blood_type",
         "patient_status",
         "pathologies",
         "treatments",
         "record",
-    ];
+    ]; */
     
     public function user()
     {

@@ -29,8 +29,9 @@ class AppointmentRequest extends FormRequest
             'patient_id' => ['required'],
             'medical_staff_id' => ['required'],
             'user_workspace_id' => ['nullable'],
+            'contact_id' => ['nullable'],
             'qualification' => ['nullable'],
-            'comment' => ['nullable']
+            'comment' => ['nullable'],
         ];
     }
 }

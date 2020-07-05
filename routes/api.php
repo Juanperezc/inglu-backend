@@ -16,6 +16,7 @@ use Laravel\Passport\Passport;
 
 Passport::routes(null, ['middleware' => 'auth:api']);
 
+
 //* auth
 Route::post('login', 'UserController@login')->name('login');
 
@@ -24,27 +25,29 @@ Route::post('user/recover_password', 'UserController@recover_password');
 
 //todo GROUP AUTH
 Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
-
 //*auth
     Route::delete('logout', 'UserController@logout');
 
+//*home
+Route::get('home', 'HomeController@index');
+
 //*users
-    Route::apiResource('users', 'UserController');
-    Route::get('user/index_patient', 'UserController@index_patient');
-    Route::get('user/index_doctors', 'UserController@index_doctors');
-    Route::get('user/index_doctors_specialty', 'UserController@index_doctors_specialty');
-    Route::get('user/specialty/{user}', 'UserController@show_specialties');
-    Route::get('user/workspace/{user}', 'UserController@show_workspaces');
-    Route::get('user/medical_record/{user}', 'UserController@show_medical_record');
-    Route::put('user/medical_record/{user}', 'UserController@update_medical_record');
-    
-    Route::post('user/specialty/{user}', 'UserController@store_specialty');
-    Route::post('user/workspace/{user}', 'UserController@store_workspace');
-    Route::post('user/specialty_delete/{user}', 'UserController@delete_specialty');
-    Route::post('user/workspace_delete/{user}', 'UserController@delete_workspace');
-    Route::get('user/me', 'UserController@me');
-    Route::post('user/read_notifications', 'UserController@read_notifications');
-    Route::post('user/change_password/{user}', 'UserController@change_password');
+Route::apiResource('users', 'UserController');
+Route::get('user/index_patient', 'UserController@index_patient');
+Route::get('user/index_doctors', 'UserController@index_doctors');
+Route::get('user/index_doctors_specialty', 'UserController@index_doctors_specialty');
+Route::get('user/specialty/{user}', 'UserController@show_specialties');
+Route::get('user/workspace/{user}', 'UserController@show_workspaces');
+Route::get('user/medical_record/{user}', 'UserController@show_medical_record');
+Route::put('user/medical_record/{user}', 'UserController@update_medical_record');
+
+Route::post('user/specialty/{user}', 'UserController@store_specialty');
+Route::post('user/workspace/{user}', 'UserController@store_workspace');
+Route::post('user/specialty_delete/{user}', 'UserController@delete_specialty');
+Route::post('user/workspace_delete/{user}', 'UserController@delete_workspace');
+Route::get('user/me', 'UserController@me');
+Route::post('user/read_notifications', 'UserController@read_notifications');
+Route::post('user/change_password/{user}', 'UserController@change_password');
 
 //*treatments
     Route::apiResource('treatments', 'TreatmentController');
@@ -53,6 +56,7 @@ Route::group(['middleware' => ['auth:api' /* , 'verified' */]], function () {
     Route::apiResource('appointments', 'AppointmentController');
     Route::get('appointment/treatment/{appointment}', 'AppointmentController@show_treatment');
     Route::get('appointment/my_appointments', 'AppointmentController@my_appointments');
+    Route::get('appointment/appointment_by_user/{id}', 'AppointmentController@appointment_by_user');
 
 //*events
     Route::apiResource('events', 'EventController');

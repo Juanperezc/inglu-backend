@@ -17,10 +17,13 @@ class CreateMedicalRecordsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->string('blood_type', 100)->nullable();
-            $table->string('patient_status', 255)->nullable();
-            $table->string('pathologies', 255)->nullable();
+          /*   $table->string('patient_status', 255)->nullable(); */
+          /*   $table->string('pathologies', 255)->nullable();
+ */
+            $table->json('pathologies');
+
             $table->text('treatments')->nullable()->default(null);
-            $table->text('record')->nullable()->default(null);
+          /*   $table->text('record')->nullable()->default(null); */
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->unique('user_id');

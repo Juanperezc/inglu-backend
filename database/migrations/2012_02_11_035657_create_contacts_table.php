@@ -20,6 +20,7 @@ class CreateContactsTable extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->date('date_of_birth');
+            $table->string('reject')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable()->default('male');

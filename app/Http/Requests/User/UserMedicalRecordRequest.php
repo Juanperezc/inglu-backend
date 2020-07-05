@@ -25,10 +25,10 @@ class UserMedicalRecordRequest extends FormRequest
     {
             return [
                 "blood_type" => ['nullable'],
-                "patient_status" => ['nullable'],
+              /*   "patient_status" => ['nullable'] */
                 "pathologies" => ['nullable'],
-                "treatments" => ['nullable'],
-                "record" => ['nullable'],
+                "treatments" => ['nullable']
+                /* "record" => ['nullable'], */
                  ];
     }
 }

@@ -42,8 +42,8 @@ class NewAppointment extends Notification implements ShouldQueue
     public function toOneSignal($notifiable)
     {
         return OneSignalMessage::create()
-            ->subject("Tienes una nueva cita agendada");
-           /*  ->body("Click here to see details."); */
+            ->subject("Tienes una nueva cita agendada")
+            ->body("");
     }
 
     /**
