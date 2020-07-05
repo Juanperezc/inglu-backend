@@ -20,7 +20,7 @@ class AppointmentService
     public static function all($perPage = 10 , $search)
     {
         /* dd($search); */
-      
+
         if ($search){
             $appointments = Appointment::search($search)->orderBy('date', 'desc')->paginate($perPage);
         }else{
@@ -34,12 +34,12 @@ class AppointmentService
     {
         /* dd($search); */
         $user = Auth::user();
-        if ($user->type == 1){
+        if ($user->type == "patient"){
         $appointments = Appointment::where('patient_id', Auth::id())->orderBy('date', 'desc')->paginate($perPage);
         }else{
         $appointments = Appointment::where('medical_staff_id', Auth::id())->orderBy('date', 'desc')->paginate($perPage);
         }
-       
+
         /* $appointments->category()->searchable(); */
         return $appointments;
     }
@@ -60,7 +60,7 @@ class AppointmentService
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
-        } 
+        }
     }
 
     public static function update(&$values, &$appointment)

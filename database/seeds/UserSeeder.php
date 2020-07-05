@@ -11,7 +11,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        
+
         $juan =  User::create([
         'name' => "Juan",
         'date_of_birth' => now(),
@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         'phone' => '04245869872',
         'address' => "Carrera 10 entre 13 y 15",
         'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/portal/Juan.png"
-        
+
        ]);
        $juan->roles()->attach(1);
        $manuel =  User::create([
@@ -50,6 +50,7 @@ class UserSeeder extends Seeder
         'address' => "Carrera 15 #38-12",
         'profile_pic' => "https://ingludiag.blob.core.windows.net/resources/image/portal/Marco.png"
        ]);
+       $marco->roles()->attach(1);
        //medicos
        $pedro =  User::create([
         'name' => "Pedro",
