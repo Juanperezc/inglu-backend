@@ -20,8 +20,7 @@ class EventSeeder extends Seeder
             "Recreación"];
         Event::create([
             'name' => "Clase grupal de Yoga",
-            'description' => "Sistema de práctica que combina postura,
-            respiración, movimiento y meditación. Clase grupal donde los practicantes son guiados de manera individual.",
+            'description' => "Sistema de práctica que combina postura,respiración, movimiento y meditación. Clase grupal donde los practicantes son guiados de manera individual.",
             'type' =>  $types[0],
             'location' => "Parque del este",
             'limit' => rand(10,50),
@@ -31,8 +30,7 @@ class EventSeeder extends Seeder
         ]);
         Event::create([
             'name' => "¿Que es el coronavirus?",
-            'description' => "Ponencias de epidemiologos, abiertas al publico para
-             dar a conocer los detalles mas importantes del virus",
+            'description' => "Ponencias de epidemiologos, abiertas al publico para dar a conocer los detalles mas importantes del virus",
             'type' =>  $types[3],
             'location' => "Ascardio",
             'limit' => rand(10,50),
