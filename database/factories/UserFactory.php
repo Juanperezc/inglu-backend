@@ -26,7 +26,7 @@ $factory->define(User::class, function (Faker $faker) {
         'last_name' => $faker->lastName,
         'id_card' => $faker->nationalId,
         'address' => $faker->address,
-        'profile_pic' => 'https://placeimg.com/100/100/any?' . rand(1, 100),
+        'profile_pic' => 'https://placeimg.com/800/800/any?' . rand(1, 100),
         'phone' => $faker->e164PhoneNumber,
         'type' => rand(1,2), //3 es lead
         'date_of_birth' => $faker->dateTimeBetween('-40 years','-18 years'),

@@ -31,7 +31,7 @@ $factory->define(Event::class, function (Faker $faker) {
         'type' =>  $types[rand(0, 4)],
         'location' => $locations[rand(0, 4)],
         'limit' => rand(10,50),
-        'picture' => 'https://placeimg.com/100/100/any?' . rand(1, 100),
+        'picture' => 'https://placeimg.com/800/800/any?' . rand(1, 100),
         'date' => $faker->dateTimeBetween('-30 days','+30 days'),
         'status'  => rand(1,2)
     ];
