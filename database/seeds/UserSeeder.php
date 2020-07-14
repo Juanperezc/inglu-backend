@@ -37,6 +37,7 @@ class UserSeeder extends Seeder
         'phone' => '04241111111',
         'address' => ""
        ]);
+
        $manuel->roles()->attach(1);
        $marco = User::create([
         'name' => "Marco",

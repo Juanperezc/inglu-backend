@@ -20,9 +20,13 @@ use App\Http\Resources\User\UserSpecialtyResource;
 use App\Http\Resources\User\UserWorkspaceResource;
 use App\Http\Resources\User\UserMedicalRecordResource;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Services\UserService;
 use App\User;
 use App\UserWorkspace;
+
+use App\Notifications\NewPatient;
+
 
 class UserController extends Controller
 {
@@ -69,6 +73,7 @@ class UserController extends Controller
         //
     }
 
+
     public function update(UserRequest $request, User $user)
     {
         $validate = $request->validated();
@@ -93,6 +98,13 @@ class UserController extends Controller
     {
         $validate = $request->validated();
         $user = UserService::store($validate);
+        $password = Str::random(7);
+        $user->password = $password;
+        $user->save();
+        if ($user->type == 1){
+            //* notify
+            Notification::send($user, new NewPatient($password));
+        }
         return new UserResource($user);
     }
 

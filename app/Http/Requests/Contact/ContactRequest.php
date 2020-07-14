@@ -31,6 +31,7 @@ class ContactRequest extends FormRequest
             'id_card' => ['required'],
             'type' => ['nullable'],
             'gender' => ['nullable'],
+            'message' => ['nullable'],
             'date_of_birth' => ['required'],
             'address' => ['nullable'],
             'phone' =>  ['nullable', 'max:255'],
